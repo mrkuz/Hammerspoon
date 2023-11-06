@@ -1,8 +1,8 @@
 local hammerspoon = {}
 print("== Module 'hammerspoon' loaded")
 
-function hammerspoon.init(mods)
-   hs.hotkey.bind(mods, "r", reloadConfig)
+function hammerspoon.init(modal)
+   modal:bind({}, "r", nil, reloadConfig)
 end
 
 function reloadConfig()
