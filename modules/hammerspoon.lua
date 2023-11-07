@@ -7,6 +7,7 @@ end
 
 function reloadConfig()
    hs.console.clearConsole()
+   hs.openConsole()
    print("== Reloading config")
    hs.reload()
 end
