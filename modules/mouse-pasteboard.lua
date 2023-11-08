@@ -1,16 +1,16 @@
-local mousePasteboard = {}
-print("== Module 'mouse-pasteboard' loaded")
+local module = {}
 
 local mods = { "cmd" }
 local pasteboardName = "secondary"
 
-function mousePasteboard.init()
+function module.init()
+   print("== Module 'mouse-pasteboard' loaded")
    -- Copy with left mouse button
    hs.eventtap.new({hs.eventtap.event.types.leftMouseUp},
       function(event)
          local flags = event:getFlags()
          if flags and flags:containExactly(mods) then
-            copy()
+            _copy()
          end
    end):start()
 
@@ -19,12 +19,12 @@ function mousePasteboard.init()
       function(event)
          local flags = event:getFlags()
          if flags and flags:containExactly(mods) then
-            paste()
+            _paste()
          end
    end):start()
 end
 
-function copy()
+function _copy()
    local primaryPasteboardBackup = hs.pasteboard.getContents()
    -- Send CMD + C
    hs.osascript.applescript('tell application "System Events" to key code 8 using command down')
@@ -38,9 +38,9 @@ function copy()
    end)
 end
 
-function paste()
+function _paste()
    local content = hs.pasteboard.getContents(pasteboardName)
    hs.eventtap.keyStrokes(content)
 end
 
-return mousePasteboard
+return module

@@ -1,15 +1,15 @@
-local hammerspoon = {}
-print("== Module 'hammerspoon' loaded")
+local module = {}
 
-function hammerspoon.init(modal)
-   modal:bind({}, "r", nil, reloadConfig)
+function module.init(modal)
+   print("== Module 'hammerspoon' loaded")
+   modal:bind({}, "r", nil, _reloadConfig)
 end
 
-function reloadConfig()
+function _reloadConfig()
    hs.console.clearConsole()
    hs.openConsole()
    print("== Reloading config")
    hs.reload()
 end
 
-return hammerspoon
+return module

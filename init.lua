@@ -1,4 +1,4 @@
-local modal = require('modules.hyperkey').init()
+local modal = require('modules.hyperkey').init().modal
 
 require('modules.hammerspoon').init(modal)
 require('modules.mouse-pasteboard').init()
