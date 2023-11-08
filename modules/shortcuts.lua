@@ -1,19 +1,10 @@
 local module = {}
 
-local width = 800
-local height = 400
+local width = 1000
+local height = 600
 local htmlContent = [[
 <!DOCTYPE html>
 <html>
-
-<!--
-⇧ Shift
-⌃ Control
-⌘ Command
-⌥ Option
-✦ Hyper
--->
-
 <head>
   <style>
     body {
@@ -34,7 +25,7 @@ local htmlContent = [[
       padding: 4px
     }
     .col-1 {
-      width: 100px;
+      width: 140px;
     }
   </style>
 </head>
@@ -44,8 +35,37 @@ local htmlContent = [[
       <h2>MacOS</h2>
       <table>
         <col class="col-1" />
+        <tr><td>⌘ Space</td><td>Spotlight</td>
+        <tr><td>⌘ Space (hold)</td><td>Siri</td>
+        <tr><td>⌃ ↑</td><td>Mission Control</td></tr>
+        <tr><td>⌃ ↓</td><td>App Exposé</td></tr>
+        <tr><td>F4</td><td>Launchpad</td>
         <tr><td>⌃ ⌘ Q</td><td>Lock screen</td></tr>
         <tr><td>⇧ ⌘ Q</td><td>Log out</td>
+        <tr><td>⇧ ⌘ /</td><td>Open Help menu</td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h2>Apps & windows</h2>
+      <table>
+        <col class="col-1" />
+        <tr><td>⌘ Tab</td><td>Cycle through windows</td></tr>
+        <tr><td>⌘ H</td><td>Hide windows of the front app</td></tr>
+        <tr><td>⌘ ⌥ H</td><td>Hide windows of other apps</td></tr>
+        <tr><td>⌘ M</td><td>Minimize front window</td></tr>
+        <tr><td>⌘ W</td><td>Close front window</td></tr>
+        <tr><td>⌘ ⌥ W</td><td>Close all windows of the front app</td></tr>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h2>Spaces</h2>
+      <table>
+        <col class="col-1" />
+        <tr><td>⌃ ←</td><td>Switch to previous space</td></tr>
+        <tr><td>⌃ →</td><td>Switch to next space</td></tr>
+        <tr><td>⌃ 1..9</td><td>Switch to space 1..9</td></tr>
         </tr>
       </table>
     </div>
