@@ -57,6 +57,7 @@ local htmlContent = [[
         <tr><td>✦ J</td><td>Capture journal entry</td></tr>
         <tr><td>✦ R</td><td>Reload Hammerspoon config</td></tr>
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
+        <tr><td>⇧ ⇧</td><td>Select next input source</td>
       </table>
     </div>
   </div>
