@@ -53,10 +53,11 @@ local htmlContent = [[
         <col class="col-1" />
         <tr><td>⌘ Tab</td><td>Cycle through windows</td></tr>
         <tr><td>⌘ H</td><td>Hide windows of the front app</td></tr>
-        <tr><td>⌘ ⌥ H</td><td>Hide windows of other apps</td></tr>
+        <tr><td>⌥ ⌘ H</td><td>Hide windows of other apps</td></tr>
         <tr><td>⌘ M</td><td>Minimize front window</td></tr>
         <tr><td>⌘ W</td><td>Close front window</td></tr>
-        <tr><td>⌘ ⌥ W</td><td>Close all windows of the front app</td></tr>
+        <tr><td>⌃ ⌘ W</td><td>Force close front window</td></tr>
+        <tr><td>⌥ ⌘ W</td><td>Close all windows of the front app</td></tr>
         </tr>
       </table>
     </div>

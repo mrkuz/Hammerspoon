@@ -3,6 +3,7 @@ local modal = require('modules.hyperkey').init().modal
 require('modules.hammerspoon').init(modal)
 require('modules.shortcuts').init(modal)
 require('modules.mouse-pasteboard').init()
+require('modules.safety-net').init()
 require('modules.toggle-input-sources').init()
 
 local emacsSocket = "/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default"
