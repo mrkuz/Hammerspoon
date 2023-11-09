@@ -11,6 +11,10 @@ modal:bind({}, "e", nil, function()
       hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c", true)
 end)
 
+modal:bind({}, "h", nil, function()
+      hs.execute("open $HOME", true)
+end)
+
 modal:bind({}, "j", nil, function()
       hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c -F '((name . \\\"org-protocol-capture\\\"))' 'org-protocol://capture?template=j'", true)
 end)

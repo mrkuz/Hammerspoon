@@ -1,7 +1,7 @@
 local module = {}
 
 local width = 1000
-local height = 600
+local height = 700
 local htmlContent = [[
 <!DOCTYPE html>
 <html>
@@ -40,6 +40,7 @@ local htmlContent = [[
         <tr><td>⌃ ↑</td><td>Mission Control</td></tr>
         <tr><td>⌃ ↓</td><td>App Exposé</td></tr>
         <tr><td>F4</td><td>Launchpad</td>
+        <tr><td>F5</td><td>Notification Center</td>
         <tr><td>⌃ ⌘ Q</td><td>Lock screen</td></tr>
         <tr><td>⇧ ⌘ Q</td><td>Log out</td>
         <tr><td>⇧ ⌘ /</td><td>Open Help menu</td>
@@ -74,9 +75,11 @@ local htmlContent = [[
       <table>
         <col class="col-1" />
         <tr><td>✦ E</td><td>Launch Emacs</td></tr>
+        <tr><td>✦ H</td><td>Open home directory</td></tr>
         <tr><td>✦ J</td><td>Capture journal entry</td></tr>
         <tr><td>✦ R</td><td>Reload Hammerspoon config</td></tr>
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
+        <tr><td>✦ /</td><td>Display shortcuts</td></tr>
         <tr><td>⇧ ⇧</td><td>Select next input source</td>
       </table>
     </div>
@@ -90,14 +93,14 @@ function module.init(modal)
 
    local webview = hs.webview.new({})
    webview:windowTitle("Shortcuts")
-   webview:windowStyle("titled")
+   webview:windowStyle({"titled", "closable"})
    webview:shadow(true)
    webview:alpha(0.9)
    webview:allowNewWindows(false)
    webview:bringToFront(true)
    webview:html(htmlContent)
 
-   modal:bind({}, "h", nil, function() _toggle(webview) end)
+   modal:bind({}, "/", nil, function() _toggle(webview) end)
 end
 
 function _toggle(webview)
