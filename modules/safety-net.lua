@@ -2,7 +2,7 @@ local module = {}
 
 function module.init()
    print("== Module 'safety-net' loaded")
-   hs.hotkey.bind({ "cmd" }, "w", function()
+   hs.hotkey.bind({ "cmd" }, "w", nil, function()
          local window = hs.window.focusedWindow()
          if window then
             local result = hs.dialog.blockAlert("Close window?", "", "Yes", "No")
@@ -10,14 +10,14 @@ function module.init()
                window:close()
             end
          end
-   end, nil)
+   end)
 
-   hs.hotkey.bind({ "cmd", "ctrl" }, "w", function()
+   hs.hotkey.bind({ "cmd", "ctrl" }, "w", nil, function()
          local window = hs.window.focusedWindow()
          if window then
             window:close()
          end
-   end, nil)
+   end)
 end
 
 return module

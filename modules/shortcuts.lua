@@ -52,12 +52,12 @@ local htmlContent = [[
       <table>
         <col class="col-1" />
         <tr><td>⌘ Tab</td><td>Cycle through windows</td></tr>
-        <tr><td>⌘ H</td><td>Hide windows of the front app</td></tr>
+        <tr><td>⌘ H</td><td>Hide windows of the current app</td></tr>
         <tr><td>⌥ ⌘ H</td><td>Hide windows of other apps</td></tr>
-        <tr><td>⌘ M</td><td>Minimize front window</td></tr>
-        <tr><td>⌘ W</td><td>Close front window</td></tr>
-        <tr><td>⌃ ⌘ W</td><td>Force close front window</td></tr>
-        <tr><td>⌥ ⌘ W</td><td>Close all windows of the front app</td></tr>
+        <tr><td>⌘ M</td><td>Minimize window</td></tr>
+        <tr><td>⌘ W</td><td>Close window</td></tr>
+        <tr><td>⌃ ⌘ W</td><td>Force close window</td></tr>
+        <tr><td>⌥ ⌘ W</td><td>Close all windows of the current app</td></tr>
         </tr>
       </table>
     </div>
@@ -65,9 +65,12 @@ local htmlContent = [[
       <h2>Spaces</h2>
       <table>
         <col class="col-1" />
-        <tr><td>⌃ ←</td><td>Switch to previous space</td></tr>
-        <tr><td>⌃ →</td><td>Switch to next space</td></tr>
+        <tr><td>⌃ ←</td><td>Switch to the previous space</td></tr>
+        <tr><td>⌃ →</td><td>Switch to the next space</td></tr>
+        <tr><td>⇧ ⌃ ←</td><td>Move window to the previous space</td></tr>
+        <tr><td>⇧ ⌃ →</td><td>Move window to the next space</td></tr>
         <tr><td>⌃ 1..9</td><td>Switch to space 1..9</td></tr>
+        <tr><td>⇧ ⌃ 1..9</td><td>Move window to space 1..9</td></tr>
         </tr>
       </table>
     </div>
