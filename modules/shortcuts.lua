@@ -1,5 +1,6 @@
 local module = {}
 
+local hyper = require('modules.hyperkey').modal
 local width = 1000
 local height = 700
 local htmlContent = [[
@@ -92,7 +93,7 @@ local htmlContent = [[
 </html>
 ]]
 
-function module.init(modal)
+function _init(modal)
    print("== Module 'shortcuts' loaded")
 
    local webview = hs.webview.new({})
@@ -104,7 +105,7 @@ function module.init(modal)
    webview:bringToFront(true)
    webview:html(htmlContent)
 
-   modal:bind({}, "/", nil, function() _toggle(webview) end)
+   hyper:bind({}, "/", nil, function() _toggle(webview) end)
 end
 
 function _toggle(webview)
@@ -124,4 +125,5 @@ function _toggle(webview)
    end
 end
 
+_init()
 return module

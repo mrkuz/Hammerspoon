@@ -1,6 +1,6 @@
 local module = {}
 
-function module.init()
+function _init()
    print("== Module 'toggle-input-sources' loaded")
    hs.eventtap.new({hs.eventtap.event.types.flagsChanged},
    function(event)
@@ -22,4 +22,5 @@ function module.init()
    end):start()
 end
 
+_init()
 return module

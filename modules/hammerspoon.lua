@@ -1,8 +1,10 @@
 local module = {}
 
-function module.init(modal)
+local hyper = require('modules.hyperkey').modal
+
+function _init()
    print("== Module 'hammerspoon' loaded")
-   modal:bind({}, "r", nil, _reloadConfig)
+   hyper:bind({}, "r", nil, _reloadConfig)
 end
 
 function _reloadConfig()
@@ -12,4 +14,5 @@ function _reloadConfig()
    hs.reload()
 end
 
+_init()
 return module

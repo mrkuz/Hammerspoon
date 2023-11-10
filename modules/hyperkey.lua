@@ -2,7 +2,7 @@ local module = {}
 
 local key = "F20"
 
-function module.init(mods)
+function _init(mods)
    print("== Module 'hyperkey' loaded")
    local modal = hs.hotkey.modal.new()
    -- Map caps lock to F20 (see: https://developer.apple.com/library/archive/technotes/tn2450/_index.html#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES)
@@ -16,7 +16,7 @@ function module.init(mods)
       function() modal:exit() end)
 
    module.modal = modal
-   return module
 end
 
+_init()
 return module

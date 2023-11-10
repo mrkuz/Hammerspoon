@@ -1,6 +1,6 @@
 local module = {}
 
-function module.init()
+function _init()
    print("== Module 'safety-net' loaded")
    hs.hotkey.bind({ "cmd" }, "w", nil, function()
          local window = hs.window.focusedWindow()
@@ -20,4 +20,5 @@ function module.init()
    end)
 end
 
+_init()
 return module

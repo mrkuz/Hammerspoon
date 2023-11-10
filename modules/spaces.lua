@@ -1,6 +1,6 @@
 local module = {}
 
-function module.init()
+function _init()
    print("== Module 'spaces' loaded")
    for i = 1, 9 do
       hs.hotkey.bind({ "ctrl", "shift" }, tostring(i), nil, function()
@@ -40,4 +40,5 @@ function _moveFocusedWindowTo(index)
    end
 end
 
+_init()
 return module

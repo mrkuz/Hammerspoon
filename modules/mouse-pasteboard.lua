@@ -3,7 +3,7 @@ local module = {}
 local mods = { "cmd" }
 local pasteboardName = "secondary"
 
-function module.init()
+function _init()
    print("== Module 'mouse-pasteboard' loaded")
    -- Copy with left mouse button
    hs.eventtap.new({hs.eventtap.event.types.leftMouseUp},
@@ -43,4 +43,5 @@ function _paste()
    hs.eventtap.keyStrokes(content)
 end
 
+_init()
 return module
