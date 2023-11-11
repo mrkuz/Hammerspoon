@@ -86,6 +86,8 @@ local htmlContent = [[
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
         <tr><td>✦ /</td><td>Display shortcuts</td></tr>
         <tr><td>⇧ ⇧</td><td>Select next input source</td>
+        <tr><td>✦ Left Mouse</td><td>Copy selected text</td></tr>
+        <tr><td>✦ Middle Mouse</td><td>Paste copied text</td></tr>
       </table>
     </div>
   </div>
