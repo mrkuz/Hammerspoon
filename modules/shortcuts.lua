@@ -1,7 +1,7 @@
 local module = {}
 
 local hyper = require('modules.hyperkey').modal
-local width = 1000
+local width = 1280
 local height = 700
 local htmlContent = [[
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ local htmlContent = [[
   </style>
 </head>
 <body>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; margin: 10px; gap: 10px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 10px; gap: 10px;">
     <div>
       <h2>MacOS</h2>
       <table>
@@ -49,20 +49,6 @@ local htmlContent = [[
       </table>
     </div>
     <div>
-      <h2>Apps & windows</h2>
-      <table>
-        <col class="col-1" />
-        <tr><td>⌘ Tab</td><td>Cycle through windows</td></tr>
-        <tr><td>⌘ H</td><td>Hide windows of the current app</td></tr>
-        <tr><td>⌥ ⌘ H</td><td>Hide windows of other apps</td></tr>
-        <tr><td>⌘ M</td><td>Minimize window</td></tr>
-        <tr><td>⌘ W</td><td>Close window</td></tr>
-        <tr><td>⌃ ⌘ W</td><td>Force close window</td></tr>
-        <tr><td>⌥ ⌘ W</td><td>Close all windows of the current app</td></tr>
-        </tr>
-      </table>
-    </div>
-    <div>
       <h2>Spaces</h2>
       <table>
         <col class="col-1" />
@@ -76,15 +62,36 @@ local htmlContent = [[
       </table>
     </div>
     <div>
+      <h2>Windows</h2>
+      <table>
+        <col class="col-1" />
+        <tr><td>⌘ Tab</td><td>Cycle through windows</td></tr>
+        <tr><td>⌘ H</td><td>Hide windows of the current app</td></tr>
+        <tr><td>⌥ ⌘ H</td><td>Hide windows of other apps</td></tr>
+        <tr><td>⌘ M</td><td>Minimize window</td></tr>
+        <tr><td>⌘ W</td><td>Close window</td></tr>
+        <tr><td>⌃ ⌘ W</td><td>Force close window</td></tr>
+        <tr><td>⌥ ⌘ W</td><td>Close all windows of the current app</td></tr>
+        </tr>
+      </table>
+    </div>
+    <div>
       <h2>Miscellaneous</h2>
       <table>
         <col class="col-1" />
         <tr><td>✦ E</td><td>Launch Emacs</td></tr>
         <tr><td>✦ H</td><td>Open home directory</td></tr>
         <tr><td>✦ J</td><td>Capture journal entry</td></tr>
+        <tr><td>✦ M</td><td>Select menu item</td></tr>
         <tr><td>✦ R</td><td>Reload Hammerspoon config</td></tr>
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
         <tr><td>✦ /</td><td>Display shortcuts</td></tr>
+      </table>
+    </div>
+    <div>
+      <h2>...</h2>
+      <table>
+        <col class="col-1" />
         <tr><td>⇧ ⇧</td><td>Select next input source</td>
         <tr><td>✦ Left Mouse</td><td>Copy selected text</td></tr>
         <tr><td>✦ Middle Mouse</td><td>Paste copied text</td></tr>

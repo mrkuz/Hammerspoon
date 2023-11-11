@@ -67,7 +67,7 @@ function _pretty(item)
       if modsTable["cmd"] then
          mods = mods .. '⌘ '
       end
-      return item.AXTitle .. " (" .. mods .. charOrGlyph .. ")"
+      return item.AXTitle .. " • " .. mods .. charOrGlyph
    end
 
    return item.AXTitle
