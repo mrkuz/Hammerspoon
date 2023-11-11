@@ -2,11 +2,12 @@ require('modules.hammerspoon')
 require('modules.shortcuts')
 require('modules.mouse-pasteboard')
 require('modules.safety-net')
+require('modules.select-menu')
 require('modules.spaces')
 require('modules.toggle-input-sources')
 
-local hyper = require('modules.hyperkey').modal
 local emacsSocket = "/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default"
+local hyper = require('modules.hyperkey').modal
 
 hyper:bind({}, "e", nil, function()
       hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c", true)

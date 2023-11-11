@@ -4,6 +4,25 @@ function _init()
    print("== Module 'utils' loaded")
 end
 
+function module.isNotEmpty(text)
+   return not module.isEmpty(text)
+end
+
+function module.isEmpty(text)
+   return text == nil or text == ''
+end
+
+function module.concat(first, second)
+   local all = {}
+   for k, v in pairs(first) do
+      table.insert(all, v)
+   end
+   for k, v in pairs(second) do
+      table.insert(all, v)
+   end
+   return all
+end
+
 function module.dump(obj)
    _dump(obj, 0)
 end
