@@ -7,7 +7,7 @@ function _init()
    print("== Module 'select-menu' loaded")
    local chooser = hs.chooser.new(function(selection)
          if selection then
-            app:selectMenuItem(selection.path)
+            hs.application.frontmostApplication():selectMenuItem(selection.path)
          end
    end)
    chooser:choices(function()
