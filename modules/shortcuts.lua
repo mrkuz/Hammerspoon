@@ -87,8 +87,8 @@ local htmlContent = [[
       <h2>Mouse</h2>
       <table>
         <col class="col-1" />
-        <tr><td>✦ Left Mouse</td><td>Copy selected text</td></tr>
-        <tr><td>✦ Middle Mouse</td><td>Paste copied text</td></tr>
+        <tr><td>⌘ Left Mouse</td><td>Copy selected text</td></tr>
+        <tr><td>⌘ Middle Mouse</td><td>Paste copied text</td></tr>
         <tr><td>✦ W</td><td>Locate mouse pointer</td></tr>
       </table>
     </div>
