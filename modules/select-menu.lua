@@ -5,20 +5,24 @@ local utils = require('modules.utils')
 
 function _init()
    print("== Module 'select-menu' loaded")
-   hyper:bind({}, "m", nil, _showChooser)
-end
-
-function _showChooser()
-   local app = hs.application.frontmostApplication()
-   local menuItems = app:getMenuItems()
-   local choices = _processMenuBar(menuItems)
    local chooser = hs.chooser.new(function(selection)
          if selection then
             app:selectMenuItem(selection.path)
          end
    end)
+   chooser:choices(function()
+         local app = hs.application.frontmostApplication()
+         local menuItems = app:getMenuItems()
+         return _processMenuBar(menuItems)
+   end)
    chooser:searchSubText(true)
-   chooser:choices(choices)
+
+   hyper:bind({}, "m", nil, function() _showChooser(chooser) end)
+end
+
+function _showChooser(chooser)
+   chooser:query("")
+   chooser:refreshChoicesCallback()
    chooser:show()
 end
 
