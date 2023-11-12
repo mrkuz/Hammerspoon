@@ -1,9 +1,10 @@
 require('modules.hammerspoon')
-require('modules.locate-mouse')
+-- Ordering is important (but no idea why)
+require('modules.shortcuts')
 require('modules.mouse-pasteboard')
+require('modules.locate-mouse')
 require('modules.safety-net')
 require('modules.select-menu')
-require('modules.shortcuts')
 require('modules.spaces')
 require('modules.toggle-input-sources')
 
