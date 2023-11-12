@@ -93,6 +93,7 @@ local htmlContent = [[
         <tr><td>⇧ ⇧</td><td>Select next input source</td>
         <tr><td>✦ Left Mouse</td><td>Copy selected text</td></tr>
         <tr><td>✦ Middle Mouse</td><td>Paste copied text</td></tr>
+        <tr><td>✦ W</td><td>Locate mouse pointer</td></tr>
       </table>
     </div>
   </div>

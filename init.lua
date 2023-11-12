@@ -1,8 +1,9 @@
 require('modules.hammerspoon')
-require('modules.shortcuts')
+require('modules.locate-mouse')
 require('modules.mouse-pasteboard')
 require('modules.safety-net')
 require('modules.select-menu')
+require('modules.shortcuts')
 require('modules.spaces')
 require('modules.toggle-input-sources')
 
