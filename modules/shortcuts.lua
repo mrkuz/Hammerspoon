@@ -1,8 +1,8 @@
 local module = {}
 
 local hyper = require('modules.hyperkey').modal
-local width = 1280
-local height = 700
+local width = 900
+local height = 800
 local htmlContent = [[
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@ local htmlContent = [[
   </style>
 </head>
 <body>
-  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 10px; gap: 10px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; margin: 20px; gap: 30px;">
     <div>
       <h2>MacOS</h2>
       <table>
@@ -53,8 +53,8 @@ local htmlContent = [[
       <table>
         <col class="col-1" />
         <tr><td>⌃ ←</td><td>Switch to the previous space</td></tr>
-        <tr><td>⌃ →</td><td>Switch to the next space</td></tr>
         <tr><td>⇧ ⌃ ←</td><td>Move window to the previous space</td></tr>
+        <tr><td>⌃ →</td><td>Switch to the next space</td></tr>
         <tr><td>⇧ ⌃ →</td><td>Move window to the next space</td></tr>
         <tr><td>⌃ 1..9</td><td>Switch to space 1..9</td></tr>
         <tr><td>⇧ ⌃ 1..9</td><td>Move window to space 1..9</td></tr>
@@ -71,7 +71,11 @@ local htmlContent = [[
         <tr><td>⌘ M</td><td>Minimize window</td></tr>
         <tr><td>⌘ W</td><td>Close window</td></tr>
         <tr><td>⌃ ⌘ W</td><td>Force close window</td></tr>
-        <tr><td>⌥ ⌘ W</td><td>Close all windows of the current app</td></tr>
+        <tr><td>⌥ ⌘ W</td><td>Close windows of the current app</td></tr>
+        <tr><td>⌃ ⌥ ↑</td><td>Maximize window</td></tr>
+        <tr><td>⌃ ⌥ ←</td><td>Tile window to the left</td></tr>
+        <tr><td>⌃ ⌥ →</td><td>Tile window to the right</td></tr>
+        <tr><td>⌃ ⌥ ↓</td><td>Restore size and position</td></tr>
         </tr>
       </table>
     </div>
@@ -86,12 +90,6 @@ local htmlContent = [[
         <tr><td>✦ R</td><td>Reload Hammerspoon config</td></tr>
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
         <tr><td>✦ /</td><td>Display shortcuts</td></tr>
-      </table>
-    </div>
-    <div>
-      <h2>...</h2>
-      <table>
-        <col class="col-1" />
         <tr><td>⇧ ⇧</td><td>Select next input source</td>
         <tr><td>✦ Left Mouse</td><td>Copy selected text</td></tr>
         <tr><td>✦ Middle Mouse</td><td>Paste copied text</td></tr>
