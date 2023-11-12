@@ -1,5 +1,5 @@
 require('modules.hammerspoon')
--- Ordering is important (but no idea why)
+-- Ordering is important, as it can break things (but no idea why)
 require('modules.shortcuts')
 require('modules.mouse-pasteboard')
 require('modules.locate-mouse')
@@ -7,6 +7,7 @@ require('modules.safety-net')
 require('modules.select-menu')
 require('modules.spaces')
 require('modules.toggle-input-sources')
+require('modules.windows')
 
 local emacsSocket = "/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default"
 local hyper = require('modules.hyperkey').modal
