@@ -17,7 +17,7 @@ function _init()
    end)
    chooser:searchSubText(true)
 
-   hyper:bind({}, "m", nil, function() _showChooser(chooser) end)
+   hyper:bind({}, "space", nil, function() _showChooser(chooser) end)
 end
 
 function _showChooser(chooser)
