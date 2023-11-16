@@ -16,7 +16,7 @@ local commander = hs.loadSpoon("Commander"):bindHotkeys({
 })
 
 local locator = hs.loadSpoon("MouseLocator"):bindHotkeys({
-      toggle = { {}, "m", modal = hyper }
+      toggle = { { "hyper" }, "m", modal = hyper }
 })
 
 commander:register(locator)

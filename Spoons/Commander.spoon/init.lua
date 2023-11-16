@@ -31,7 +31,7 @@ function obj:init()
             for _, action in ipairs(actions) do
                local choice = {
                   uuid = hs.host.uuid(),
-                  text = action.text,
+                  text = self:_pretty(spoon, action),
                   subText = action.subText
                }
                table.insert(choices, choice)
@@ -65,6 +65,45 @@ function obj:_show()
    self._chooser:refreshChoicesCallback()
    self._chooser:show()
    return self
+end
+
+function obj:_pretty(spoon, action)
+   local hotkeyMapping = spoon:hotkeyMapping()
+   if hotkeyMapping then
+      local spec = hotkeyMapping[action.name]
+      if spec then
+         return action.text .. self:_prettySpec(spec)
+      end
+   end
+   return action.text
+end
+
+function obj:_prettySpec(spec)
+   local text = ''
+   local set = utils.toSet(spec[1])
+   if set["hyper"] then
+      text = text .. '✦ '
+   end
+   if set["shift"] then
+      text = text .. '⇧ '
+   end
+   if set["ctrl"] then
+      text = text .. '⌃ '
+   end
+   if set["alt"] then
+      text = text .. '⌥ '
+   end
+   if set["cmd"] then
+      text = text .. '⌘ '
+   end
+   if utils.isNotEmpty(spec[2]) then
+      text = text .. spec[2]:upper()
+   end
+
+   if utils.isNotEmpty(text) then
+      return "   ·   " .. text
+   end
+   return ''
 end
 
 return obj

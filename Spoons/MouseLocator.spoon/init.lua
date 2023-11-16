@@ -34,6 +34,8 @@ function obj:start() return self end
 function obj:stop() return self end
 
 function obj:bindHotkeys(mapping)
+   self._hotkeyMapping = mapping
+
    local spec = mapping.toggle
    spec.pressFn = function() self:_start() end
    spec.releaseFn = function() self:_stop() end
@@ -41,12 +43,16 @@ function obj:bindHotkeys(mapping)
    return self
 end
 
+function obj:hotkeyMapping()
+   return self._hotkeyMapping;
+end
+
 function obj:actions()
    return {
       {
          name = "toggle",
          text = "Where is my mouse?",
-         subText = nil,
+         subText = self:_getSubText(),
          actionFn = function() self:_toggle() end
       }
    }
@@ -78,6 +84,14 @@ end
 function obj:_updatePosition()
    local pos = hs.mouse.absolutePosition()
    self._circle:setTopLeft({ x = pos.x - obj.radius, y = pos.y - obj.radius })
+end
+
+function obj:_getSubText()
+   if self._timer:running() then
+      return "Status: on"
+   else
+      return "Status: off"
+   end
 end
 
 return obj
