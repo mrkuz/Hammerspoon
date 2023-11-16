@@ -37,9 +37,11 @@ function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
 
    local spec = mapping.toggle
-   spec.pressFn = function() self:_start() end
-   spec.releaseFn = function() self:_stop() end
-   utils.bindSpec(spec)
+   if spec then
+      spec.pressFn = function() self:_start() end
+      spec.releaseFn = function() self:_stop() end
+      utils.bindSpec(spec)
+   end
    return self
 end
 

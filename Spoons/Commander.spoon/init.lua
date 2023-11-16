@@ -41,8 +41,10 @@ function obj:stop() return self end
 
 function obj:bindHotkeys(mapping)
    local spec = mapping.show
-   spec.pressFn = function() self:_show() end
-   utils.bindSpec(spec)
+   if spec then
+      spec.pressFn = function() self:_show() end
+      utils.bindSpec(spec)
+   end
    return self
 end
 
@@ -73,7 +75,7 @@ function obj:_filterChoices(query)
    local choices = {}
    for _, choice in ipairs(self._choices) do
       choice.score = fzy.score(query, choice.origText)
-      if choice.score > 0 then
+      if choice.score > -math.huge then
          table.insert(choices, choice)
       end
    end

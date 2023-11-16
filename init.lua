@@ -1,4 +1,3 @@
-require('modules.hammerspoon')
 -- Ordering is important, as it can break things (but no idea why)
 require('modules.shortcuts')
 require('modules.mouse-pasteboard')
@@ -15,10 +14,14 @@ local commander = hs.loadSpoon("Commander"):bindHotkeys({
       show = { {}, "x", modal = hyper }
 })
 
+local locator = hs.loadSpoon("Hammerspoon"):bindHotkeys({
+      reloadConfig = { { "hyper" }, "r", modal = hyper }
+})
+commander:register(locator)
+
 local locator = hs.loadSpoon("MouseLocator"):bindHotkeys({
       toggle = { { "hyper" }, "m", modal = hyper }
 })
-
 commander:register(locator)
 
 hyper:bind({}, "e", nil, function()
