@@ -15,6 +15,7 @@ obj.license = "MIT - https://opensource.org/license/mit/"
 obj.logger = hs.logger.new("Commander")
 
 local utils = require('lib.utils')
+local fzy = require('lib.fzy')
 
 function obj:init()
    self._chooser = hs.chooser.new(function(selection)
@@ -23,24 +24,14 @@ function obj:init()
          end
    end)
 
-   self._chooser:choices(function()
-         self._actions = {}
-         local choices = {}
-         for _, spoon in ipairs(self._spoons) do
-            local actions = spoon:actions()
-            for _, action in ipairs(actions) do
-               local choice = {
-                  uuid = hs.host.uuid(),
-                  text = self:_pretty(spoon, action),
-                  subText = action.subText
-               }
-               table.insert(choices, choice)
-               self._actions[choice.uuid] = action.actionFn
-            end
+   self._chooser:queryChangedCallback(function(query)
+         if utils.isEmpty(query) then
+            self._chooser:choices(self._choices)
+            return
          end
-         return choices
+         self:_filterChoices(query)
    end)
-   self._chooser:searchSubText(true)
+
    self._spoons = {}
    return self
 end
@@ -60,9 +51,41 @@ function obj:register(spoon)
    return self
 end
 
+function obj:_buildChoices()
+   self._actions = {}
+   self._choices = {}
+   for _, spoon in ipairs(self._spoons) do
+      local actions = spoon:actions()
+      for _, action in ipairs(actions) do
+         local choice = {
+            uuid = hs.host.uuid(),
+            text = self:_pretty(spoon, action),
+            origText = action.text,
+            subText = action.subText
+         }
+         table.insert(self._choices, choice)
+         self._actions[choice.uuid] = action.actionFn
+      end
+   end
+end
+
+function obj:_filterChoices(query)
+   local choices = {}
+   for _, choice in ipairs(self._choices) do
+      choice.score = fzy.score(query, choice.origText)
+      if choice.score > 0 then
+         table.insert(choices, choice)
+      end
+   end
+
+   table.sort(choices, function(a, b) return a.score > b.score end)
+   self._chooser:choices(choices)
+end
+
 function obj:_show()
    self._chooser:query("")
-   self._chooser:refreshChoicesCallback()
+   self:_buildChoices()
+   self._chooser:choices(self._choices)
    self._chooser:show()
    return self
 end
