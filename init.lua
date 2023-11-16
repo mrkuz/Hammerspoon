@@ -11,9 +11,15 @@ require('modules.windows')
 local emacsSocket = "/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default"
 local hyper = require('modules.hyperkey').modal
 
-hs.loadSpoon("MouseLocator"):bindHotkeys({
+local commander = hs.loadSpoon("Commander"):bindHotkeys({
+      show = { {}, "x", modal = hyper }
+})
+
+local locator = hs.loadSpoon("MouseLocator"):bindHotkeys({
       toggle = { {}, "m", modal = hyper }
 })
+
+commander:register(locator)
 
 hyper:bind({}, "e", nil, function()
       hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c", true)

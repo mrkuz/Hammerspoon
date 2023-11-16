@@ -1,6 +1,6 @@
 --- === MouseLocator ===
 ---
---- Simple spoon for locating the mouse pointer.
+--- Locating the mouse pointer.
 
 local obj = {}
 obj.__index = obj
@@ -18,6 +18,8 @@ obj.radius = 40
 obj.width = 10
 obj.color = { red = 1, blue = 0, green = 0, alpha = 1 }
 
+local utils = require('lib.utils')
+
 function obj:init()
    self._circle = hs.drawing.circle(hs.geometry.rect(0, 0, obj.radius * 2, obj.radius * 2))
    self._circle:setStrokeWidth(obj.width)
@@ -33,27 +35,44 @@ function obj:stop() return self end
 
 function obj:bindHotkeys(mapping)
    local spec = mapping.toggle
-   if spec.modal then
-      spec.modal:bind(spec[1], spec[2],
-                  function() self:_start() end,
-                  function() self:_stop() end)
-   else
-      hs.hotkey.bind(spec[1], spec[2],
-                  function() self:_start() end,
-                  function() self:_stop() end)
-   end
+   spec.pressFn = function() self:_start() end
+   spec.releaseFn = function() self:_stop() end
+   utils.bindSpec(spec)
    return self
 end
 
+function obj:actions()
+   return {
+      {
+         name = "toggle",
+         text = "Where is my mouse?",
+         subText = nil,
+         actionFn = function() self:_toggle() end
+      }
+   }
+end
+
 function obj:_start()
-   self:_updatePosition()
-   self._circle:show()
-   self._timer:start()
+   if not self._timer:running() then
+      self:_updatePosition()
+      self._circle:show()
+      self._timer:start()
+   end
 end
 
 function obj:_stop()
-   self._timer:stop()
-   self._circle:hide()
+   if self._timer:running() then
+      self._timer:stop()
+      self._circle:hide()
+   end
+end
+
+function obj:_toggle()
+   if self._timer:running() then
+      self:_stop()
+   else
+      self:_start()
+   end
 end
 
 function obj:_updatePosition()
