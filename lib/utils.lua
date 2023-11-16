@@ -17,6 +17,17 @@ function utils.toSet(obj)
    return set
 end
 
+function utils.concatLists(first, second)
+   local all = {}
+   for _, v in ipairs(first) do
+      table.insert(all, v)
+   end
+   for _, v in ipairs(second) do
+      table.insert(all, v)
+   end
+   return all
+end
+
 function utils.isNotEmpty(text)
    return not utils.isEmpty(text)
 end

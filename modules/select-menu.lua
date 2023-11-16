@@ -1,7 +1,7 @@
 local module = {}
 
 local hyper = require('modules.hyperkey').modal
-local utils = require('modules.utils')
+local utils = require('lib.utils')
 
 function _init()
    print("== Module 'select-menu' loaded")
@@ -38,7 +38,7 @@ function _processMenuItem(processed, item, path, parents)
    if (item.AXRole == "AXMenuBarItem" or item.AXRole == "AXMenuItem") and item.AXEnabled and utils.isNotEmpty(item.AXTitle) then
       if item.AXChildren then
          for k, v in pairs(item.AXChildren[1]) do
-            _processMenuItem(processed, v, utils.concat(path, { v.AXTitle }), parents .. item.AXTitle .. " ▶ ")
+            _processMenuItem(processed, v, utils.concatLists(path, { v.AXTitle }), parents .. item.AXTitle .. " ▶ ")
          end
       else
          table.insert(processed, {
