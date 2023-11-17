@@ -19,30 +19,25 @@ obj._hotkeyMapping = nil
 
 local utils = require('lib.utils')
 
-function obj:init()
-   return self
-end
-
-function obj:configure(config)
-   return self
-end
-
-function obj:start()
-   return self
-end
-
-function obj:stop()
-   return self
-end
-
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
 
    local spec = mapping.forceClose
    if spec then
-      spec.pressFn = function() self:_forceCloseFocusedWindow() end
+      spec.pressFn = function() self:_forceCloseWindow() end
       utils.bindSpec(spec)
    end
+   spec = mapping.minimizeAll
+   if spec then
+      spec.pressFn = function() self:_minimizeAllWindows() end
+      utils.bindSpec(spec)
+   end
+   spec = mapping.hideAll
+   if spec then
+      spec.pressFn = function() self:_hideAllWindows() end
+      utils.bindSpec(spec)
+   end
+
    return self
 end
 
@@ -53,18 +48,48 @@ end
 function obj:actions()
    return {
       {
+         name = 'minimizeAll',
+         text = 'Minimize all windows',
+         subText = '',
+         actionFn = function() self:_minimizeAllWindows() end
+      },
+      {
+         name = 'hideAll',
+         text = 'Show desktop (hide all windows)',
+         subText = '',
+         actionFn = function() self:_hideAllWindows() end
+      },
+      {
          name = 'forceClose',
          text = 'Force close focused window',
          subText = '',
-         actionFn = function() self:_forceCloseFocusedWindow() end
+         actionFn = function() self:_forceCloseWindow() end
       }
    }
 end
 
-function obj:_forceCloseFocusedWindow()
+function obj:_forceCloseWindow()
    local window = hs.window.focusedWindow()
    if window then
       window:close()
+   end
+end
+
+function obj:_minimizeAllWindows()
+   self:_forAllWindows(function (window) window:minimize() end)
+end
+
+function obj:_hideAllWindows()
+   self:_forAllWindows(function (window) window:application():hide() end)
+end
+
+function obj:_forAllWindows(callback)
+   local currentSpace = hs.spaces.focusedSpace()
+   for _, v in ipairs(hs.spaces.windowsForSpace(currentSpace)) do
+      local window = hs.window.get(v)
+      if window and window:isStandard() and window:isVisible() then
+         callback(window)
+      end
    end
 end
 

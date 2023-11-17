@@ -4,7 +4,6 @@ require('modules.mouse-pasteboard')
 require('modules.select-menu')
 require('modules.spaces')
 require('modules.toggle-input-sources')
-require('modules.windows')
 
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 local hyper = require('modules.hyperkey').modal
@@ -21,12 +20,14 @@ local hammerspoon = hs.loadSpoon('Hammerspoon'):bindHotkeys({
 commander:registerSpoon(hammerspoon)
 
 local locator = hs.loadSpoon('MouseLocator'):bindHotkeys({
-      toggle = { { 'hyper' }, 'm', modal = hyper }
+      toggle = { { 'hyper' }, 'w', modal = hyper }
 })
 commander:registerSpoon(locator)
 
 local windows = hs.loadSpoon('Windows'):bindHotkeys({
-      forceClose = { { 'ctrl', 'cmd' }, 'w' }
+      forceClose = { { 'ctrl', 'cmd' }, 'w' },
+      minimizeAll = { { 'hyper' }, 'm', modal = hyper },
+      hideAll = { { 'hyper' }, 'd', modal = hyper }
 })
 commander:registerSpoon(windows)
 
