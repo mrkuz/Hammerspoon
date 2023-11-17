@@ -6,17 +6,21 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "MouseLocator"
-obj.version = "latest"
-obj.author = "Markus Opitz <markus@bitsandbobs.net>"
-obj.homepage = "https://github.com/mrkuz/hammerspoon"
-obj.license = "MIT - https://opensource.org/license/mit/"
+obj.name = 'MouseLocator'
+obj.version = 'latest'
+obj.author = 'Markus Opitz <markus@bitsandbobs.net>'
+obj.homepage = 'https://github.com/mrkuz/hammerspoon'
+obj.license = 'MIT - https://opensource.org/license/mit/'
 
-obj.logger = hs.logger.new("MouseLocator")
+obj.logger = hs.logger.new('MouseLocator')
 
 obj.radius = 40
 obj.width = 10
 obj.color = { red = 1, blue = 0, green = 0, alpha = 1 }
+
+obj._hotkeyMapping = nil
+obj._circle = nil
+obj._timer = nil
 
 local utils = require('lib.utils')
 
@@ -29,9 +33,6 @@ function obj:init()
    self._timer = hs.timer.new(0.05, function() self:_updatePosition() end)
    return self
 end
-
-function obj:start() return self end
-function obj:stop() return self end
 
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
@@ -52,8 +53,8 @@ end
 function obj:actions()
    return {
       {
-         name = "toggle",
-         text = "Where is my mouse?",
+         name = 'toggle',
+         text = 'Where is my mouse?',
          subText = self:_getSubText(),
          actionFn = function() self:_toggle() end
       }
@@ -90,9 +91,9 @@ end
 
 function obj:_getSubText()
    if self._timer:running() then
-      return "Status: on"
+      return 'Status: on'
    else
-      return "Status: off"
+      return 'Status: off'
    end
 end
 

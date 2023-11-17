@@ -7,35 +7,35 @@ require('modules.spaces')
 require('modules.toggle-input-sources')
 require('modules.windows')
 
-local emacsSocket = "/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default"
+local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 local hyper = require('modules.hyperkey').modal
 
-local commander = hs.loadSpoon("Commander"):bindHotkeys({
-      show = { {}, "x", modal = hyper }
+local commander = hs.loadSpoon('Commander'):bindHotkeys({
+      show = { {}, 'x', modal = hyper }
 })
 
-local locator = hs.loadSpoon("Hammerspoon"):bindHotkeys({
-      reloadConfig = { { "hyper" }, "r", modal = hyper }
+local hammerspoon = hs.loadSpoon('Hammerspoon'):bindHotkeys({
+      reloadConfig = { { 'hyper' }, 'r', modal = hyper }
 })
-commander:register(locator)
+commander:registerSpoon(hammerspoon)
 
-local locator = hs.loadSpoon("MouseLocator"):bindHotkeys({
-      toggle = { { "hyper" }, "m", modal = hyper }
+local locator = hs.loadSpoon('MouseLocator'):bindHotkeys({
+      toggle = { { 'hyper' }, 'm', modal = hyper }
 })
-commander:register(locator)
+commander:registerSpoon(locator)
 
-hyper:bind({}, "e", nil, function()
-      hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c", true)
+hyper:bind({}, 'e', nil, function()
+      hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)
 end)
 
-hyper:bind({}, "h", nil, function()
-      hs.execute("open $HOME", true)
+hyper:bind({}, 'h', nil, function()
+      hs.execute('open $HOME', true)
 end)
 
-hyper:bind({}, "j", nil, function()
+hyper:bind({}, 'j', nil, function()
       hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c -F '((name . \\\"org-protocol-capture\\\"))' 'org-protocol://capture?template=j'", true)
 end)
 
-hyper:bind({}, "t", nil, function()
-      hs.execute("open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app", true)
+hyper:bind({}, 't', nil, function()
+      hs.execute('open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app', true)
 end)

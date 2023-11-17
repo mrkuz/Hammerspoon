@@ -6,19 +6,17 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "Hammerspoon"
-obj.version = "latest"
-obj.author = "Markus Opitz <markus@bitsandbobs.net>"
-obj.homepage = "https://github.com/mrkuz/hammerspoon"
-obj.license = "MIT - https://opensource.org/license/mit/"
+obj.name = 'Hammerspoon'
+obj.version = 'latest'
+obj.author = 'Markus Opitz <markus@bitsandbobs.net>'
+obj.homepage = 'https://github.com/mrkuz/hammerspoon'
+obj.license = 'MIT - https://opensource.org/license/mit/'
 
-obj.logger = hs.logger.new("Hammerspoon")
+obj.logger = hs.logger.new('Hammerspoon')
+
+obj._hotkeyMapping = nil
 
 local utils = require('lib.utils')
-
-function obj:init() return self end
-function obj:start() return self end
-function obj:stop() return self end
 
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
@@ -38,9 +36,9 @@ end
 function obj:actions()
    return {
       {
-         name = "reloadConfig",
-         text = "Reload Hammerspoon config",
-         subText = "",
+         name = 'reloadConfig',
+         text = 'Reload Hammerspoon config',
+         subText = '',
          actionFn = function() self:_reloadConfig() end
       }
    }

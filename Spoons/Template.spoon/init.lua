@@ -6,16 +6,16 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "NAME"
-obj.version = "latest"
-obj.author = "Markus Opitz <markus@bitsandbobs.net>"
-obj.homepage = "https://github.com/mrkuz/hammerspoon"
-obj.license = "MIT - https://opensource.org/license/mit/"
+obj.name = 'NAME'
+obj.version = 'latest'
+obj.author = 'Markus Opitz <markus@bitsandbobs.net>'
+obj.homepage = 'https://github.com/mrkuz/hammerspoon'
+obj.license = 'MIT - https://opensource.org/license/mit/'
 
-obj.logger = hs.logger.new("NAME")
+obj.logger = hs.logger.new('NAME')
 
--- Defaults
--- obj.key = value
+-- Variables
+obj._hotkeyMapping = nil
 
 local utils = require('lib.utils')
 
@@ -23,8 +23,17 @@ function obj:init()
    return self
 end
 
-function obj:start() return self end
-function obj:stop() return self end
+function obj:configure(config)
+   return self
+end
+
+function obj:start()
+   return self
+end
+
+function obj:stop()
+   return self
+end
 
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
@@ -45,9 +54,9 @@ end
 function obj:actions()
    return {
       {
-         name = "ACTION_NAME",
-         text = "COMMANDER_TEXT",
-         subText = "",
+         name = 'ACTION_NAME',
+         text = 'COMMANDER_TEXT',
+         subText = '',
          actionFn = function() self:_ACTION_FN() end
       }
    }

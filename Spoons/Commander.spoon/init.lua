@@ -6,13 +6,18 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "Commander"
-obj.version = "latest"
-obj.author = "Markus Opitz <markus@bitsandbobs.net>"
-obj.homepage = "https://github.com/mrkuz/hammerspoon"
-obj.license = "MIT - https://opensource.org/license/mit/"
+obj.name = 'Commander'
+obj.version = 'latest'
+obj.author = 'Markus Opitz <markus@bitsandbobs.net>'
+obj.homepage = 'https://github.com/mrkuz/hammerspoon'
+obj.license = 'MIT - https://opensource.org/license/mit/'
 
-obj.logger = hs.logger.new("Commander")
+obj.logger = hs.logger.new('Commander')
+
+obj._chooser = nil
+obj._spoons = {}
+obj._actions = nil
+obj._choices = nil
 
 local utils = require('lib.utils')
 local fzy = require('lib.fzy')
@@ -32,12 +37,8 @@ function obj:init()
          self:_filterChoices(query)
    end)
 
-   self._spoons = {}
    return self
 end
-
-function obj:start() return self end
-function obj:stop() return self end
 
 function obj:bindHotkeys(mapping)
    local spec = mapping.show
@@ -48,7 +49,7 @@ function obj:bindHotkeys(mapping)
    return self
 end
 
-function obj:register(spoon)
+function obj:registerSpoon(spoon)
    table.insert(self._spoons, spoon)
    return self
 end
@@ -85,7 +86,7 @@ function obj:_filterChoices(query)
 end
 
 function obj:_show()
-   self._chooser:query("")
+   self._chooser:query('')
    self:_buildChoices()
    self._chooser:choices(self._choices)
    self._chooser:show()
@@ -106,19 +107,19 @@ end
 function obj:_prettySpec(spec)
    local text = ''
    local set = utils.toSet(spec[1])
-   if set["hyper"] then
+   if set['hyper'] then
       text = text .. '✦ '
    end
-   if set["shift"] then
+   if set['shift'] then
       text = text .. '⇧ '
    end
-   if set["ctrl"] then
+   if set['ctrl'] then
       text = text .. '⌃ '
    end
-   if set["alt"] then
+   if set['alt'] then
       text = text .. '⌥ '
    end
-   if set["cmd"] then
+   if set['cmd'] then
       text = text .. '⌘ '
    end
    if utils.isNotEmpty(spec[2]) then
@@ -126,7 +127,7 @@ function obj:_prettySpec(spec)
    end
 
    if utils.isNotEmpty(text) then
-      return "   ·   " .. text
+      return '   ·   ' .. text
    end
    return ''
 end

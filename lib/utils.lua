@@ -42,13 +42,13 @@ end
 
 function _dump(obj, level)
    local prefix = _repeat(' ', level)
-   if type(obj) == "table" then
+   if type(obj) == 'table' then
       for k, v in pairs(obj) do
-         if type(v) == "table" then
+         if type(v) == 'table' then
             print(prefix .. k)
             _dump(v, level + 1)
          else
-            print(prefix ..  k .. " = " .. tostring(v))
+            print(prefix ..  k .. ' = ' .. tostring(v))
          end
       end
    else

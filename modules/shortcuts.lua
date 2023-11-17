@@ -89,7 +89,6 @@ local htmlContent = [[
         <col class="col-1" />
         <tr><td>⌘ Left Mouse</td><td>Copy selected text</td></tr>
         <tr><td>⌘ Middle Mouse</td><td>Paste copied text</td></tr>
-        <tr><td>✦ W</td><td>Locate mouse pointer</td></tr>
       </table>
     </div>
     <div>
@@ -109,7 +108,6 @@ local htmlContent = [[
         <tr><td>✦ E</td><td>Launch Emacs</td></tr>
         <tr><td>✦ H</td><td>Open home directory</td></tr>
         <tr><td>✦ J</td><td>Capture journal entry</td></tr>
-        <tr><td>✦ R</td><td>Reload Hammerspoon config</td></tr>
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
         <tr><td>✦ /</td><td>Display shortcuts</td></tr>
         <tr><td>⇧ ⇧</td><td>Select next input source</td>
