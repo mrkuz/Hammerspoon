@@ -16,19 +16,28 @@ obj.logger = hs.logger.new('InputSources')
 
 -- Variables
 obj._hotkeyMapping = nil
+obj._eventtap = nil
 
 local utils = require('lib.utils')
 
 function obj:init()
-   hs.eventtap.new({ hs.eventtap.event.types.flagsChanged },
+   self._eventtap = hs.eventtap.new({ hs.eventtap.event.types.flagsChanged },
       function(event)
          local rawFlags = event:rawFlags() & 0xdffffeff
          -- Switch if both shift keys are pressed
          if rawFlags == 131078 then
             self:_switchInputSource()
          end
-   end):start()
+   end)
    return self
+end
+
+function obj:start()
+   self._eventtap:start()
+end
+
+function obj:stop()
+   self._eventtap:stop()
 end
 
 function obj:actions()

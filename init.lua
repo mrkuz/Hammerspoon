@@ -31,9 +31,11 @@ commander:registerSpoon(windows)
 
 local inputSources = hs.loadSpoon('InputSources')
 commander:registerSpoon(inputSources)
+inputSources:start()
 
 local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard')
 commander:registerSpoon(secondaryPasteboard)
+secondaryPasteboard:start()
 
 hyper:bind({}, 'e', nil, function()
       hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)

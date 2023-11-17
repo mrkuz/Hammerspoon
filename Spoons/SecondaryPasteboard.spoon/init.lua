@@ -18,28 +18,40 @@ obj.mods = { 'cmd' }
 
 obj._hotkeyMapping = nil
 obj._content = nil
+obj._copyEventtap = nil
+obj._pasteEventtap = nil
 
 local utils = require('lib.utils')
 
 function obj:init()
    -- Copy with left mouse button
-   hs.eventtap.new({ hs.eventtap.event.types.leftMouseUp },
+   self._copyEventtap = hs.eventtap.new({ hs.eventtap.event.types.leftMouseUp },
       function(event)
          local flags = event:getFlags()
          if flags and flags:containExactly(obj.mods) then
             self:_copy()
          end
-   end):start()
+   end)
 
    -- Paste with middle mouse button
-   hs.eventtap.new({ hs.eventtap.event.types.otherMouseUp },
+   self._pasteEventtap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseUp },
       function(event)
          local flags = event:getFlags()
          if flags and flags:containExactly(obj.mods) then
             self:_paste()
          end
-   end):start()
+   end)
    return self
+end
+
+function obj:start()
+   self._copyEventtap:start()
+   self._pasteEventtap:start()
+end
+
+function obj:stop()
+   self._copyEventtap:stop()
+   self._pasteEventtap:stop()
 end
 
 function obj:actions()
