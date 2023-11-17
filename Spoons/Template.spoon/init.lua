@@ -37,13 +37,7 @@ end
 
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
-
-   local spec = mapping.ACTION_NAME
-   if spec then
-      spec.pressFn = function() self:_PRESS_FN() end
-      spec.releaseFn = function() self:_RELEASE_FN() end
-      utils.bindSpec(spec)
-   end
+   utils.bind(mapping, ACTION_NAME, function() self:_PRESS_FN() end, function() self:_RELEASE_FN() end)
    return self
 end
 

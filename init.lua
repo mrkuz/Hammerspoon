@@ -27,7 +27,7 @@ commander:registerSpoon(locator)
 local windows = hs.loadSpoon('Windows'):bindHotkeys({
       forceClose = { { 'ctrl', 'cmd' }, 'w' },
       minimizeAll = { { 'hyper' }, 'm', modal = hyper },
-      hideAll = { { 'hyper' }, 'd', modal = hyper }
+      hideAll = { { 'hyper' }, 'h', modal = hyper }
 })
 commander:registerSpoon(windows)
 

@@ -21,23 +21,9 @@ local utils = require('lib.utils')
 
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
-
-   local spec = mapping.forceClose
-   if spec then
-      spec.pressFn = function() self:_forceCloseWindow() end
-      utils.bindSpec(spec)
-   end
-   spec = mapping.minimizeAll
-   if spec then
-      spec.pressFn = function() self:_minimizeAllWindows() end
-      utils.bindSpec(spec)
-   end
-   spec = mapping.hideAll
-   if spec then
-      spec.pressFn = function() self:_hideAllWindows() end
-      utils.bindSpec(spec)
-   end
-
+   utils.bind(mapping, 'forceClose', function() self:_forceCloseWindow() end)
+   utils.bind(mapping, 'minimizeAll', function() self:_minimizeAllWindows() end)
+   utils.bind(mapping, 'hideAll', function() self:_hideAllWindows() end)
    return self
 end
 
@@ -55,7 +41,7 @@ function obj:actions()
       },
       {
          name = 'hideAll',
-         text = 'Show desktop (hide all windows)',
+         text = 'Hide all windows',
          subText = '',
          actionFn = function() self:_hideAllWindows() end
       },

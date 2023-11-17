@@ -20,12 +20,7 @@ local utils = require('lib.utils')
 
 function obj:bindHotkeys(mapping)
    self._hotkeyMapping = mapping
-
-   local spec = mapping.reloadConfig
-   if spec then
-      spec.pressFn = function() self:_reloadConfig() end
-      utils.bindSpec(spec)
-   end
+   utils.bind(mapping, 'reloadConfig', function() self:_reloadConfig() end)
    return self
 end
 

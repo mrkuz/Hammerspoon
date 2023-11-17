@@ -65,11 +65,8 @@ local htmlContent = [[
         <tr><td>⌘ Tab</td><td>Cycle through windows</td></tr>
         <tr><td>⌘ H</td><td>Hide windows of the current app</td></tr>
         <tr><td>⌥ ⌘ H</td><td>Hide windows of other apps</td></tr>
-        <tr><td>✦ ⌘ H</td><td>Hide all windows</td></tr>
         <tr><td>⌘ M</td><td>Minimize window</td></tr>
-        <tr><td>✦ ⌘ M</td><td>Minimize all windows</td></tr>
         <tr><td>⌘ W</td><td>Close window</td></tr>
-        <tr><td>⌃ ⌘ W</td><td>Force close window</td></tr>
         <tr><td>⌥ ⌘ W</td><td>Close windows of the current app</td></tr>
       </table>
     </div>

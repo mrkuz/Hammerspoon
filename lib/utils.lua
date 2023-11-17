@@ -1,5 +1,14 @@
 local utils = {}
 
+function utils.bind(mapping, actionName, pressFn, releaseFn)
+   local spec = mapping[actionName]
+   if spec then
+      spec.pressFn = pressFn
+      spec.releaseFn = releaseFn
+      utils.bindSpec(spec)
+   end
+end
+
 function utils.bindSpec(spec)
    if spec.modal then
       spec.modal:bind(spec[1], spec[2], spec.pressFn, spec.releaseFn)

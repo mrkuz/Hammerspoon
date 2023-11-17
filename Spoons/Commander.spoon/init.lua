@@ -41,11 +41,7 @@ function obj:init()
 end
 
 function obj:bindHotkeys(mapping)
-   local spec = mapping.show
-   if spec then
-      spec.pressFn = function() self:_show() end
-      utils.bindSpec(spec)
-   end
+   utils.bind(mapping, 'show', function() self:_show() end)
    return self
 end
 
