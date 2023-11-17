@@ -81,14 +81,6 @@ local htmlContent = [[
       </table>
     </div>
     <div>
-      <h2>Mouse</h2>
-      <table>
-        <col class="col-1" />
-        <tr><td>⌘ Left Mouse</td><td>Copy selected text</td></tr>
-        <tr><td>⌘ Middle Mouse</td><td>Paste copied text</td></tr>
-      </table>
-    </div>
-    <div>
       <h2>Screenshots</h2>
       <table>
         <col class="col-1" />
@@ -107,7 +99,6 @@ local htmlContent = [[
         <tr><td>✦ J</td><td>Capture journal entry</td></tr>
         <tr><td>✦ T</td><td>Launch Terminal</td></tr>
         <tr><td>✦ /</td><td>Display shortcuts</td></tr>
-        <tr><td>⇧ ⇧</td><td>Select next input source</td>
       </table>
     </div>
   </div>

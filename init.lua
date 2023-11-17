@@ -1,17 +1,16 @@
 -- Ordering is important, as it can break things (but no idea why)
 require('modules.shortcuts')
-require('modules.mouse-pasteboard')
 require('modules.select-menu')
 require('modules.spaces')
 
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 local hyper = require('modules.hyperkey').modal
 
-hs.loadSpoon('SafetyNet')
-
 local commander = hs.loadSpoon('Commander'):bindHotkeys({
       show = { {}, 'x', modal = hyper }
 })
+
+hs.loadSpoon('SafetyNet')
 
 local hammerspoon = hs.loadSpoon('Hammerspoon'):bindHotkeys({
       reloadConfig = { { 'hyper' }, 'r', modal = hyper }
@@ -25,13 +24,16 @@ commander:registerSpoon(locator)
 
 local windows = hs.loadSpoon('Windows'):bindHotkeys({
       forceClose = { { 'ctrl', 'cmd' }, 'w' },
-      minimizeAll = { { 'hyper' }, 'm', modal = hyper },
-      hideAll = { { 'hyper' }, 'h', modal = hyper }
+      minimizeAll = { { 'hyper', 'cmd' }, 'm', modal = hyper },
+      hideAll = { { 'hyper', 'cmd' }, 'h', modal = hyper }
 })
 commander:registerSpoon(windows)
 
 local inputSources = hs.loadSpoon('InputSources')
 commander:registerSpoon(inputSources)
+
+local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard')
+commander:registerSpoon(secondaryPasteboard)
 
 hyper:bind({}, 'e', nil, function()
       hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)

@@ -33,7 +33,6 @@ function obj:actions()
       {
          name = 'reloadConfig',
          text = 'Reload Hammerspoon config',
-         subText = '',
          actionFn = function() self:_reloadConfig() end
       }
    }

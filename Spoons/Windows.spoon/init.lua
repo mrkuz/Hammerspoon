@@ -36,19 +36,16 @@ function obj:actions()
       {
          name = 'minimizeAll',
          text = 'Minimize all windows',
-         subText = '',
          actionFn = function() self:_minimizeAllWindows() end
       },
       {
          name = 'hideAll',
          text = 'Hide all windows',
-         subText = '',
          actionFn = function() self:_hideAllWindows() end
       },
       {
          name = 'forceClose',
          text = 'Force close focused window',
-         subText = '',
          actionFn = function() self:_forceCloseWindow() end
       }
    }
