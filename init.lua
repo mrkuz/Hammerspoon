@@ -3,7 +3,6 @@ require('modules.shortcuts')
 require('modules.mouse-pasteboard')
 require('modules.select-menu')
 require('modules.spaces')
-require('modules.toggle-input-sources')
 
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 local hyper = require('modules.hyperkey').modal
@@ -30,6 +29,9 @@ local windows = hs.loadSpoon('Windows'):bindHotkeys({
       hideAll = { { 'hyper' }, 'h', modal = hyper }
 })
 commander:registerSpoon(windows)
+
+local inputSources = hs.loadSpoon('InputSources')
+commander:registerSpoon(inputSources)
 
 hyper:bind({}, 'e', nil, function()
       hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)

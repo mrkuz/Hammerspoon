@@ -90,14 +90,20 @@ function obj:_show()
 end
 
 function obj:_pretty(spoon, action)
-   local hotkeyMapping = spoon:hotkeyMapping()
-   if hotkeyMapping then
-      local spec = hotkeyMapping[action.name]
-      if spec then
-         return action.text .. self:_prettySpec(spec)
+   local text = action.text
+   if spoon.hotkeyMapping then
+      local hotkeyMapping = spoon:hotkeyMapping()
+      if hotkeyMapping then
+         local spec = hotkeyMapping[action.name]
+         if spec then
+            text = action.text .. self:_prettySpec(spec)
+         end
       end
    end
-   return action.text
+   if utils.isNotEmpty(action.extraText) then
+      text = text .. '   ·   ' .. action.extraText
+   end
+   return text
 end
 
 function obj:_prettySpec(spec)
