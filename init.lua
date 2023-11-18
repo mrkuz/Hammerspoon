@@ -31,15 +31,19 @@ inputSources:start()
 local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard')
 secondaryPasteboard:start()
 
+local menuActions = hs.loadSpoon('MenuActions')
+
 commander:registerAction({ name = "windows", text = "Windows" })
 commander:registerAction({ name = "spaces", text = "Spaces" })
 commander:registerAction({ name = "pasteboard", text = "Pasteboard" })
+commander:registerAction({ name = "menu", text = "Menu" })
 
 commander:registerSpoon(inputSources)
 commander:registerSpoon(locator)
 commander:registerSpoon(windows, "windows")
 commander:registerSpoon(spaces, "spaces")
 commander:registerSpoon(secondaryPasteboard, "pasteboard")
+commander:registerSpoon(menuActions, "menu")
 commander:registerSpoon(hammerspoon)
 
 hyper:bind({}, 'e', nil, function()
