@@ -81,7 +81,6 @@ local htmlContent = [[
       <h2>Miscellaneous</h2>
       <table>
         <col class="col-1" />
-        <tr><td>✦ Space</td><td>Select menu item</td></tr>
         <tr><td>✦ E</td><td>Launch Emacs</td></tr>
         <tr><td>✦ H</td><td>Open home directory</td></tr>
         <tr><td>✦ J</td><td>Capture journal entry</td></tr>

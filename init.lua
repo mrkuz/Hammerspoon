@@ -1,13 +1,12 @@
 
 -- Ordering is important, as it can break things (but no idea why)
 require('modules.shortcuts')
-require('modules.select-menu')
 
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 local hyper = require('modules.hyperkey').modal
 
 local commander = hs.loadSpoon('Commander'):bindHotkeys({
-      show = { {}, 'x', modal = hyper }
+      show = { {}, 'space', modal = hyper }
 })
 
 hs.loadSpoon('SafetyNet'):start()

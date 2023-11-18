@@ -102,7 +102,12 @@ function obj:_filterChoices(query)
    local choices = {}
    for _, choice in ipairs(self._choices) do
       choice.score = fzy.score(query, choice.origText)
-      if choice.score > -math.huge then
+      if choice.score == math.huge then
+         -- Workaround for bug in fzy
+         if utils.startsWith(choice.origText, query) then
+            table.insert(choices, choice)
+         end
+      elseif choice.score > -math.huge then
          table.insert(choices, choice)
       end
    end

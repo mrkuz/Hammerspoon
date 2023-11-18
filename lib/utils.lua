@@ -12,6 +12,10 @@ function utils.bind(mapping, actionName, pressFn, releaseFn)
    return self
 end
 
+function utils.startsWith(text, prefix)
+   return text:lower():sub(1, #prefix) == prefix:lower()
+end
+
 function utils.toSet(obj)
    local set = {}
    for _, v in pairs(obj) do
