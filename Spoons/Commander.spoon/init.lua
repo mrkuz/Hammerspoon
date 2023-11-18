@@ -15,8 +15,9 @@ obj.license = 'MIT - https://opensource.org/license/mit/'
 obj.logger = hs.logger.new('Commander')
 
 obj._chooser = nil
+obj._actions = {}
 obj._spoons = {}
-obj._actions = nil
+obj._actionFunctions = nil
 obj._choices = nil
 
 local utils = require('lib.utils')
@@ -25,7 +26,7 @@ local fzy = require('lib.fzy')
 function obj:init()
    self._chooser = hs.chooser.new(function(selection)
          if selection then
-            self._actions[selection.uuid]()
+            self._actionFunctions[selection.uuid]()
          end
    end)
 
@@ -45,25 +46,38 @@ function obj:bindHotkeys(mapping)
    return self
 end
 
+function obj:registerAction(action)
+   table.insert(self._actions, action)
+   return self
+end
+
 function obj:registerSpoon(spoon)
    table.insert(self._spoons, spoon)
    return self
 end
 
 function obj:_buildChoices()
-   self._actions = {}
+   self._actionFunctions = {}
    self._choices = {}
+   for _, action in ipairs(self._actions) do
+      local choice = self:_newChoice(action)
+      table.insert(self._choices, choice)
+      self._actionFunctions[choice.uuid] = action.actionFn
+   end
    for _, spoon in ipairs(self._spoons) do
       local actions = spoon:actions()
+      local hotkeyMapping = nil
+      if spoon.hotkeyMapping then
+         hotkeyMapping = spoon:hotkeyMapping()
+      end
+      if not hotkeyMapping then
+         hotkeyMapping = {}
+      end
+
       for _, action in ipairs(actions) do
-         local choice = {
-            uuid = hs.host.uuid(),
-            text = self:_pretty(spoon, action),
-            origText = action.text,
-            subText = action.subText
-         }
+         local choice = self:_newChoice(action, hotkeyMapping[action.name])
          table.insert(self._choices, choice)
-         self._actions[choice.uuid] = action.actionFn
+         self._actionFunctions[choice.uuid] = action.actionFn
       end
    end
 end
@@ -89,17 +103,24 @@ function obj:_show()
    return self
 end
 
+function obj:_newChoice(action, spec)
+   local choice = {}
+   choice.uuid = hs.host.uuid()
+   choice.origText = action.text
+   choice.subText = action.subText
+   if spec then
+      choice.text = action.text .. self:_prettySpec(spec)
+   else
+      choice.text = action.text
+   end
+   if utils.isNotEmpty(action.extraText) then
+      choice.text = choice.text .. '   ·   ' .. action.extraText
+   end
+   return choice
+end
+
 function obj:_pretty(spoon, action)
    local text = action.text
-   if spoon.hotkeyMapping then
-      local hotkeyMapping = spoon:hotkeyMapping()
-      if hotkeyMapping then
-         local spec = hotkeyMapping[action.name]
-         if spec then
-            text = action.text .. self:_prettySpec(spec)
-         end
-      end
-   end
    if utils.isNotEmpty(action.extraText) then
       text = text .. '   ·   ' .. action.extraText
    end
