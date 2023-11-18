@@ -17,6 +17,7 @@ obj.logger = hs.logger.new('Commander')
 obj._chooser = nil
 obj._actions = {}
 obj._spoons = {}
+obj._parentMapping = {}
 obj._actionMapping = nil
 obj._choices = nil
 
@@ -57,8 +58,8 @@ function obj:registerAction(action)
 end
 
 function obj:registerSpoon(spoon, parent)
-   local extended = utils.merge(spoon, { parent = parent })
-   table.insert(self._spoons, extended)
+   table.insert(self._spoons, spoon)
+   self._parentMapping[spoon.name] = parent
    return self
 end
 
@@ -86,7 +87,7 @@ function obj:_buildChoices(parent)
          if action.parent then
             match = action.parent == parent
          else
-            match = spoon.parent == parent
+            match = self._parentMapping[spoon.name] == parent
          end
          if match then
             local choice = self:_newChoice(action, hotkeyMapping[action.name])
