@@ -16,7 +16,7 @@ obj.logger = hs.logger.new('SafetyNet')
 
 local utils = require('lib.utils')
 
-function obj:init()
+function obj:start()
    hs.hotkey.bind({ 'cmd' }, 'w', function()
          local window = hs.window.focusedWindow()
          if window then

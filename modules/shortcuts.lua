@@ -47,18 +47,6 @@ local htmlContent = [[
       </table>
     </div>
     <div>
-      <h2>Spaces</h2>
-      <table>
-        <col class="col-1" />
-        <tr><td>⌃ ←</td><td>Switch to the previous space</td></tr>
-        <tr><td>⇧ ⌃ ←</td><td>Move window to the previous space</td></tr>
-        <tr><td>⌃ →</td><td>Switch to the next space</td></tr>
-        <tr><td>⇧ ⌃ →</td><td>Move window to the next space</td></tr>
-        <tr><td>⌃ 1..9</td><td>Switch to space 1..9</td></tr>
-        <tr><td>⇧ ⌃ 1..9</td><td>Move window to space 1..9</td></tr>
-      </table>
-    </div>
-    <div>
       <h2>Window management</h2>
       <table>
         <col class="col-1" />

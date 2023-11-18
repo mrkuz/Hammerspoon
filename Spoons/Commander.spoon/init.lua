@@ -57,11 +57,8 @@ function obj:registerAction(action)
 end
 
 function obj:registerSpoon(spoon, parent)
-   local key = utils.nilToEmpty(parent)
-   if not self._spoons[key] then
-      self._spoons[key] = {}
-   end
-   table.insert(self._spoons[key], spoon)
+   local extended = utils.merge(spoon, { parent = parent })
+   table.insert(self._spoons, extended)
    return self
 end
 
@@ -69,13 +66,13 @@ function obj:_buildChoices(parent)
    self._actionMapping = {}
    self._choices = {}
    for _, action in ipairs(self._actions) do
-      if not parent or parent == action.parent then
+      if action.parent == parent then
          local choice = self:_newChoice(action)
          table.insert(self._choices, choice)
          self._actionMapping[choice.uuid] = action
       end
    end
-   for _, spoon in ipairs(self._spoons[utils.nilToEmpty(parent)]) do
+   for _, spoon in ipairs(self._spoons) do
       local actions = spoon:actions()
       local hotkeyMapping = nil
       if spoon.hotkeyMapping then
@@ -83,11 +80,19 @@ function obj:_buildChoices(parent)
       end
       if not hotkeyMapping then
          hotkeyMapping = {}
-         end
+      end
       for _, action in ipairs(actions) do
-         local choice = self:_newChoice(action, hotkeyMapping[action.name])
-         table.insert(self._choices, choice)
-         self._actionMapping[choice.uuid] = action
+         local match = false
+         if action.parent then
+            match = action.parent == parent
+         else
+            match = spoon.parent == parent
+         end
+         if match then
+            local choice = self:_newChoice(action, hotkeyMapping[action.name])
+            table.insert(self._choices, choice)
+            self._actionMapping[choice.uuid] = action
+         end
       end
    end
 end
@@ -143,24 +148,36 @@ end
 
 function obj:_prettySpec(spec)
    local text = ''
-   local set = utils.toSet(spec[1])
-   if set['hyper'] then
+   local mods = utils.toSet(spec[1])
+   if mods['hyper'] then
       text = text .. '✦ '
    end
-   if set['shift'] then
+   if mods['shift'] then
       text = text .. '⇧ '
    end
-   if set['ctrl'] then
+   if mods['ctrl'] then
       text = text .. '⌃ '
    end
-   if set['alt'] then
+   if mods['alt'] then
       text = text .. '⌥ '
    end
-   if set['cmd'] then
+   if mods['cmd'] then
       text = text .. '⌘ '
    end
-   if utils.isNotEmpty(spec[2]) then
-      text = text .. spec[2]:upper()
+
+   local key = spec[2]
+   if utils.isNotEmpty(key) then
+      if key == 'left' then
+         text = text .. '←'
+      elseif key == 'right' then
+         text = text .. '→'
+      elseif key == 'up' then
+         text = text .. '↑'
+      elseif key == 'down' then
+         text = text .. '↓'
+      else
+         text = text .. key:upper()
+      end
    end
 
    if utils.isNotEmpty(text) then

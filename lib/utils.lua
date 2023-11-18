@@ -20,6 +20,17 @@ function utils.toSet(obj)
    return set
 end
 
+function utils.merge(first, second)
+   local all = {}
+   for k, v in pairs(first) do
+      all[k] = v
+   end
+   for k, v in pairs(second) do
+      all[k] = v
+   end
+   return all
+end
+
 function utils.concatLists(first, second)
    local all = {}
    for _, v in ipairs(first) do
