@@ -46,7 +46,7 @@ function obj:actions()
          name = 'switchIputSource',
          text = 'Switch to next input source',
          extraText = '⇧ ⇧',
-         subText = hs.keycodes.currentLayout() .. ' -> ' .. self:_nextInputSource(),
+         subText = hs.keycodes.currentLayout() .. ' → ' .. self:_nextInputSource(),
          actionFn = function() self:_switchInputSource() end
       }
    }

@@ -3,17 +3,11 @@ local utils = {}
 function utils.bind(mapping, actionName, pressFn, releaseFn)
    local spec = mapping[actionName]
    if spec then
-      spec.pressFn = pressFn
-      spec.releaseFn = releaseFn
-      utils.bindSpec(spec)
-   end
-end
-
-function utils.bindSpec(spec)
-   if spec.modal then
-      spec.modal:bind(spec[1], spec[2], spec.pressFn, spec.releaseFn)
-   else
-      hs.hotkey.bind(spec[1], spec[2], spec.pressFn, spec.releaseFn)
+      if spec.modal then
+         spec.modal:bind(spec[1], spec[2], pressFn, releaseFn)
+      else
+         hs.hotkey.bind(spec[1], spec[2], pressFn, releaseFn)
+      end
    end
    return self
 end
@@ -37,12 +31,19 @@ function utils.concatLists(first, second)
    return all
 end
 
-function utils.isNotEmpty(text)
-   return not utils.isEmpty(text)
+function utils.nilToEmpty(text)
+   if not text then
+      return ''
+   end
+   return text
 end
 
 function utils.isEmpty(text)
-   return text == nil or text == ''
+   return utils.nilToEmpty(text) == ''
+end
+
+function utils.isNotEmpty(text)
+   return not utils.isEmpty(text)
 end
 
 function utils.dump(obj)

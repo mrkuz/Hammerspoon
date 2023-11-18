@@ -1,3 +1,4 @@
+
 -- Ordering is important, as it can break things (but no idea why)
 require('modules.shortcuts')
 require('modules.select-menu')
@@ -15,27 +16,29 @@ hs.loadSpoon('SafetyNet')
 local hammerspoon = hs.loadSpoon('Hammerspoon'):bindHotkeys({
       reloadConfig = { { 'hyper' }, 'r', modal = hyper }
 })
-commander:registerSpoon(hammerspoon)
-
 local locator = hs.loadSpoon('MouseLocator'):bindHotkeys({
       toggle = { { 'hyper' }, 'w', modal = hyper }
 })
-commander:registerSpoon(locator)
-
 local windows = hs.loadSpoon('Windows'):bindHotkeys({
       forceClose = { { 'ctrl', 'cmd' }, 'w' },
       minimizeAll = { { 'hyper', 'cmd' }, 'm', modal = hyper },
       hideAll = { { 'hyper', 'cmd' }, 'h', modal = hyper }
 })
-commander:registerSpoon(windows)
 
 local inputSources = hs.loadSpoon('InputSources')
-commander:registerSpoon(inputSources)
 inputSources:start()
 
 local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard')
-commander:registerSpoon(secondaryPasteboard)
 secondaryPasteboard:start()
+
+commander:registerAction({ name = "windows", text = "Windows" })
+commander:registerAction({ name = "pasteboard", text = "Secondary pasteboard" })
+
+commander:registerSpoon(inputSources)
+commander:registerSpoon(locator)
+commander:registerSpoon(windows, "windows")
+commander:registerSpoon(secondaryPasteboard, "pasteboard")
+commander:registerSpoon(hammerspoon)
 
 hyper:bind({}, 'e', nil, function()
       hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)

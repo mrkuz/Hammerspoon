@@ -17,7 +17,7 @@ obj.logger = hs.logger.new('Commander')
 obj._chooser = nil
 obj._actions = {}
 obj._spoons = {}
-obj._actionFunctions = nil
+obj._actionMapping = nil
 obj._choices = nil
 
 local utils = require('lib.utils')
@@ -26,7 +26,12 @@ local fzy = require('lib.fzy')
 function obj:init()
    self._chooser = hs.chooser.new(function(selection)
          if selection then
-            self._actionFunctions[selection.uuid]()
+            local action = self._actionMapping[selection.uuid]
+            if action.actionFn then
+               action.actionFn()
+            else
+               self:_show(action.name)
+            end
          end
    end)
 
@@ -51,20 +56,26 @@ function obj:registerAction(action)
    return self
 end
 
-function obj:registerSpoon(spoon)
-   table.insert(self._spoons, spoon)
+function obj:registerSpoon(spoon, parent)
+   local key = utils.nilToEmpty(parent)
+   if not self._spoons[key] then
+      self._spoons[key] = {}
+   end
+   table.insert(self._spoons[key], spoon)
    return self
 end
 
-function obj:_buildChoices()
-   self._actionFunctions = {}
+function obj:_buildChoices(parent)
+   self._actionMapping = {}
    self._choices = {}
    for _, action in ipairs(self._actions) do
-      local choice = self:_newChoice(action)
-      table.insert(self._choices, choice)
-      self._actionFunctions[choice.uuid] = action.actionFn
+      if not parent or parent == action.parent then
+         local choice = self:_newChoice(action)
+         table.insert(self._choices, choice)
+         self._actionMapping[choice.uuid] = action
+      end
    end
-   for _, spoon in ipairs(self._spoons) do
+   for _, spoon in ipairs(self._spoons[utils.nilToEmpty(parent)]) do
       local actions = spoon:actions()
       local hotkeyMapping = nil
       if spoon.hotkeyMapping then
@@ -72,12 +83,11 @@ function obj:_buildChoices()
       end
       if not hotkeyMapping then
          hotkeyMapping = {}
-      end
-
+         end
       for _, action in ipairs(actions) do
          local choice = self:_newChoice(action, hotkeyMapping[action.name])
          table.insert(self._choices, choice)
-         self._actionFunctions[choice.uuid] = action.actionFn
+         self._actionMapping[choice.uuid] = action
       end
    end
 end
@@ -95,9 +105,10 @@ function obj:_filterChoices(query)
    self._chooser:choices(choices)
 end
 
-function obj:_show()
+function obj:_show(parent)
+   self._chooser:choices({})
    self._chooser:query('')
-   self:_buildChoices()
+   self:_buildChoices(parent)
    self._chooser:choices(self._choices)
    self._chooser:show()
    return self
@@ -115,6 +126,9 @@ function obj:_newChoice(action, spec)
    end
    if utils.isNotEmpty(action.extraText) then
       choice.text = choice.text .. '   ·   ' .. action.extraText
+   end
+   if not action.actionFn then
+      choice.text = choice.text .. ' … '
    end
    return choice
 end
