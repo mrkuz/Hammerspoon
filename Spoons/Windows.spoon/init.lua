@@ -16,6 +16,7 @@ obj.logger = hs.logger.new('Windows')
 
 -- Variables
 obj._hotkeyMapping = nil
+obj._store = {}
 
 local utils = require('lib.utils')
 
@@ -24,6 +25,10 @@ function obj:bindHotkeys(mapping)
    utils.bind(mapping, 'forceClose', function() self:_forceCloseWindow() end)
    utils.bind(mapping, 'minimizeAll', function() self:_minimizeAllWindows() end)
    utils.bind(mapping, 'hideAll', function() self:_hideAllWindows() end)
+   utils.bind(mapping, 'maximize', function() self:_maximizeWindow() end)
+   utils.bind(mapping, 'restore', function() self:_restoreWindow() end)
+   utils.bind(mapping, 'tileLeft', function() self:_tileWindowToLeft() end)
+   utils.bind(mapping, 'tileRight', function() self:_tileWindowToRight() end)
    return self
 end
 
@@ -47,6 +52,26 @@ function obj:actions()
          name = 'forceClose',
          text = 'Force close focused window',
          actionFn = function() self:_forceCloseWindow() end
+      },
+      {
+         name = 'maximize',
+         text = 'Maximize window',
+         actionFn = function() self:_maximizeWindow() end
+      },
+      {
+         name = 'restore',
+         text = 'Restore window size and position',
+         actionFn = function() self:_restoreWindow() end
+      },
+      {
+         name = 'tileLeft',
+         text = 'Tile window to left',
+         actionFn = function() self:_tileWindowToLeft() end
+      },
+      {
+         name = 'tileRight',
+         text = 'Tile window to right',
+         actionFn = function() self:_tileWindowToRight() end
       }
    }
 end
@@ -74,6 +99,49 @@ function obj:_forAllWindows(callback)
          callback(window)
       end
    end
+end
+
+function obj:_maximizeWindow()
+   local window = hs.window.focusedWindow()
+   self._store[window:id()] = window:frame()
+   hs.window.focusedWindow():maximize()
+end
+
+function obj:_restoreWindow()
+   local window = hs.window.focusedWindow()
+   local id = window:id()
+   if id and self._store[id] then
+      local frame = self._store[id]
+      window:setFrame(frame)
+   end
+end
+
+function obj:_tileWindowToLeft()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+
+   local frame = {
+      x = 0,
+      y = 0,
+      w = screen.w / 2,
+      h = screen.h,
+   }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
+
+function obj:_tileWindowToRight()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+
+   local frame = {
+      x = screen.x + (screen.w / 2),
+      y = screen.y,
+      w = screen.w / 2,
+      h = screen.h,
+   }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
 end
 
 return obj

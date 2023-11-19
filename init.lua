@@ -60,7 +60,7 @@ commander:registerSpoon(hammerspoon)
 
 commander:bindHotkeys({
       show = { {}, 'space', modal = hyper }
-})
+}) 
 cheatSheet:bindHotkeys({
       toggle = { { 'hyper' }, '/', modal = hyper }
 })
@@ -68,6 +68,10 @@ locator:bindHotkeys({
       toggle = { { 'hyper' }, 'w', modal = hyper }
 })
 windows:bindHotkeys({
+      tileLeft = { { 'ctrl', 'alt' }, 'left' },
+      tileRight = { { 'ctrl', 'alt' }, 'right' },
+      maximize = { { 'ctrl', 'alt' }, 'up' },
+      restore = { { 'ctrl', 'alt' }, 'down' },
       forceClose = { { 'ctrl', 'cmd' }, 'w' },
       minimizeAll = { { 'hyper', 'cmd' }, 'm', modal = hyper },
       hideAll = { { 'hyper', 'cmd' }, 'h', modal = hyper }
