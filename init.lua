@@ -1,5 +1,14 @@
-local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
-local hyper = require('modules.hyperkey').modal
+-- Map caps lock to F20
+-- see: https://developer.apple.com/library/archive/technotes/tn2450/_index.html#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES)
+local codeCapsLock = "0x700000039"
+local codeF20 = "0x70000006F"
+hs.execute("hidutil property --set '{\"UserKeyMapping\":[{"
+           .. "\"HIDKeyboardModifierMappingSrc\": " .. codeCapsLock .. ", "
+           .. "\"HIDKeyboardModifierMappingDst\": " .. codeF20
+           ..  "}]}'")
+
+local hyper = hs.hotkey.modal.new()
+hs.hotkey.bind({}, "F20", function() hyper:enter() end, function() hyper:exit() end)
 
 local commander = hs.loadSpoon('Commander'):bindHotkeys({
       show = { {}, 'space', modal = hyper }
@@ -45,6 +54,8 @@ commander:registerSpoon(spaces, "spaces")
 commander:registerSpoon(secondaryPasteboard, "pasteboard")
 commander:registerSpoon(menuActions, "menu")
 commander:registerSpoon(hammerspoon)
+
+local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 
 hyper:bind({}, 'e', nil, function()
       hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)
