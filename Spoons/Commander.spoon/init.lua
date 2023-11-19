@@ -53,13 +53,15 @@ function obj:bindHotkeys(mapping)
    return self
 end
 
-function obj:registerAction(action)
+function obj:registerAction(spec)
+   local action = utils.copy(spec, { 'name', 'text', 'subText', 'extraText', 'parent', 'actionFn' } )
    if not action.name then
       action.name = hs.host.uuid()
    end
    table.insert(self._actions, action)
-   if action[1] and action[2] and action.actionFn then
-      self._hotkeyMapping[action.name] = action
+   if spec[1] and spec[2] and action.actionFn then
+      local hotkey = utils.copy(spec, { 1, 2, 'modal' })
+      self._hotkeyMapping[action.name] = hotkey
       utils.bind(self._hotkeyMapping, action.name, action.actionFn)
    end
    return self

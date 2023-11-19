@@ -28,6 +28,7 @@ local inputSources = hs.loadSpoon('InputSources'):start()
 local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard'):start()
 local menuActions = hs.loadSpoon('MenuActions')
 local cheatSheet = hs.loadSpoon("CheatSheet")
+local shellActions = hs.loadSpoon("ShellActions")
 
 -- -------------------------------------------------------------------------------
 -- Configure Commander
@@ -37,8 +38,10 @@ commander:registerAction({ name = 'windows', text = 'Windows' })
 commander:registerAction({ name = 'spaces', text = 'Spaces' })
 commander:registerAction({ name = 'pasteboard', text = 'Pasteboard' })
 commander:registerAction({ name = 'menu', text = 'Menu' })
+commander:registerAction({ name = 'emacs', text = 'Emacs' })
 
 commander:registerSpoon(cheatSheet)
+commander:registerSpoon(shellActions)
 commander:registerSpoon(inputSources)
 commander:registerSpoon(locator)
 commander:registerSpoon(windows, 'windows')
@@ -70,23 +73,28 @@ hammerspoon:bindHotkeys({
 })
 
 -- -------------------------------------------------------------------------------
--- Configure some custom hotkeys
+-- Configure some custom actions
 -- -------------------------------------------------------------------------------
 
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 
-hyper:bind({}, 'e', nil, function()
-      hs.execute('emacsclient --socket-name ' .. emacsSocket .. ' -n -c', true)
-end)
-
-hyper:bind({}, 'h', nil, function()
-      hs.execute('open $HOME', true)
-end)
-
-hyper:bind({}, 'j', nil, function()
-      hs.execute("emacsclient --socket-name " .. emacsSocket .. " -n -c -F '((name . \\\"org-protocol-capture\\\"))' 'org-protocol://capture?template=j'", true)
-end)
-
-hyper:bind({}, 't', nil, function()
-      hs.execute('open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app', true)
-end)
+shellActions:registerAction({
+      { 'hyper' }, 'e', modal = hyper,
+      text = 'New Emacs client', parent = 'emacs',
+      command = 'emacsclient --socket-name ' .. emacsSocket .. ' -n -c'
+})
+shellActions:registerAction({
+      { 'hyper' }, 'j', modal = hyper,
+      text = 'Capture journal entry', parent = 'emacs',
+      command = "emacsclient --socket-name " .. emacsSocket .. " -n -c -F '((name . \\\"org-protocol-capture\\\"))' 'org-protocol://capture?template=j'"
+})
+shellActions:registerAction({
+      { 'hyper' }, 'h', modal = hyper,
+      text = 'Open home directory',
+      command = 'open $HOME'
+})
+shellActions:registerAction({
+      { 'hyper' }, 't', modal = hyper,
+      text = 'New terminal',
+      command = 'open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app'
+})

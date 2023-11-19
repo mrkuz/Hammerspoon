@@ -24,6 +24,14 @@ function utils.toSet(obj)
    return set
 end
 
+function utils.copy(source, keys)
+   local copy = {}
+   for _, k in ipairs(keys) do
+      copy[k] = source[k]
+   end
+   return copy
+end
+
 function utils.merge(first, second)
    local all = {}
    for k, v in pairs(first) do
