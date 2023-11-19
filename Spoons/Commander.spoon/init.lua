@@ -191,6 +191,8 @@ function obj:_prettySpec(spec)
          text = text .. '↑'
       elseif key == 'down' then
          text = text .. '↓'
+      elseif key == 'space' then
+         text = text .. 'SPC'
       else
          text = text .. key:upper()
       end
