@@ -1,5 +1,8 @@
 local utils = {}
 
+local keycodes = require('lib.keycodes')
+local logger = hs.logger.new('Utils')
+
 function utils.bind(mapping, actionName, pressFn, releaseFn)
    local spec = mapping[actionName]
    if spec then
@@ -10,6 +13,35 @@ function utils.bind(mapping, actionName, pressFn, releaseFn)
       end
    end
    return self
+end
+
+function utils.systemKeyStroke(mods, key)
+   local keycode = keycodes[key:lower()]
+   if not keycode then
+      logger.e('Key code for "' .. key .. '" not found')
+      return
+   end
+
+   local script = 'tell application "System Events" to key code ' .. tostring(keycode)
+   if mods[1] then
+      script = script .. ' using {'
+      for i, mod in ipairs(mods) do
+         if mod == 'shift' then
+            script = script .. ' shift down '
+         elseif mod == 'ctrl' then
+            script = script .. ' control down '
+         elseif mod == 'alt' then
+            script = script .. ' option down '
+         elseif mod == 'cmd' then
+            script = script .. ' command down '
+         end
+         if mods[i + 1] then
+            script = script .. ', '
+         end
+      end
+      script = script .. '}'
+   end
+   hs.osascript.applescript(script)
 end
 
 function utils.startsWith(text, prefix)

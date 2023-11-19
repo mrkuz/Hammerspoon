@@ -29,11 +29,13 @@ local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard'):start()
 local menuActions = hs.loadSpoon('MenuActions')
 local cheatSheet = hs.loadSpoon("CheatSheet")
 local shellActions = hs.loadSpoon("ShellActions")
+local keyboardActions = hs.loadSpoon("KeyboardActions")
 
 -- -------------------------------------------------------------------------------
 -- Configure Commander
 -- -------------------------------------------------------------------------------
 
+commander:registerAction({ name = 'macos', text = 'macOS' })
 commander:registerAction({ name = 'windows', text = 'Windows' })
 commander:registerAction({ name = 'spaces', text = 'Spaces' })
 commander:registerAction({ name = 'pasteboard', text = 'Pasteboard' })
@@ -48,6 +50,7 @@ commander:registerSpoon(windows, 'windows')
 commander:registerSpoon(spaces, 'spaces')
 commander:registerSpoon(secondaryPasteboard, 'pasteboard')
 commander:registerSpoon(menuActions, 'menu')
+commander:registerSpoon(keyboardActions)
 commander:registerSpoon(hammerspoon)
 
 -- -------------------------------------------------------------------------------
@@ -98,3 +101,12 @@ shellActions:registerAction({
       text = 'New terminal',
       command = 'open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app'
 })
+
+-- -------------------------------------------------------------------------------
+-- Add actions for existing keyboard shortcuts
+-- -------------------------------------------------------------------------------
+
+keyboardActions:registerAction({ {}, 'F3', system = true, text = 'Mission Control', parent = 'macos' })
+keyboardActions:registerAction({ {}, 'F4', system = true, text = 'Launchpad', parent = 'macos' })
+keyboardActions:registerAction({ { 'ctrl' }, 'down', system = true, text = 'App Exposé', parent = 'macos' })
+

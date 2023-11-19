@@ -83,8 +83,7 @@ end
 
 function obj:_copy()
    local backup = hs.pasteboard.getContents()
-   -- Send CMD + C
-   hs.osascript.applescript('tell application "System Events" to key code 8 using command down')
+   utils.systemKeyStroke({ 'cmd' }, 'c')
    hs.timer.doAfter(
       -- Wait a short time so the content is available in the primary pasteboard
       0.1,

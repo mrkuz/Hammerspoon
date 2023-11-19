@@ -51,9 +51,6 @@ obj.content = [[
         <col class="col-1" />
         <tr><td>⌘ Space</td><td>Spotlight</td>
         <tr><td>⌘ Space (hold)</td><td>Siri</td>
-        <tr><td>⌃ ↑</td><td>Mission Control</td></tr>
-        <tr><td>⌃ ↓</td><td>App Exposé</td></tr>
-        <tr><td>F4</td><td>Launchpad</td>
         <tr><td>F5</td><td>Notification Center</td>
         <tr><td>⌃ ⌘ Q</td><td>Lock screen</td></tr>
         <tr><td>⇧ ⌘ Q</td><td>Log out</td></tr>
@@ -88,17 +85,6 @@ obj.content = [[
         <tr><td>⇧ ⌘ 3</td><td>Screenshot</td></tr>
         <tr><td>⇧ ⌘ 4</td><td>Screenshot of area</td></tr>
         <tr><td>⇧ ⌘ 4 Space</td><td>Screenshot of window</td></tr>
-      </table>
-    </div>
-    <div>
-      <h2>Miscellaneous</h2>
-      <table>
-        <col class="col-1" />
-        <tr><td>✦ E</td><td>Launch Emacs</td></tr>
-        <tr><td>✦ H</td><td>Open home directory</td></tr>
-        <tr><td>✦ J</td><td>Capture journal entry</td></tr>
-        <tr><td>✦ T</td><td>Launch Terminal</td></tr>
-        <tr><td>✦ /</td><td>Display shortcuts</td></tr>
       </table>
     </div>
   </div>

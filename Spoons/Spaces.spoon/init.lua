@@ -139,8 +139,7 @@ function obj:_switchToRight()
 end
 
 function obj:_switchTo(index)
-   hs.eventtap.event.newKeyEvent({ 'ctrl' }, tostring(index), true):post()
-   hs.eventtap.event.newKeyEvent({ 'ctrl' }, tostring(index), false):post()
+   hs.eventtap.keyStroke({ 'ctrl' }, tostring(index))
 end
 
 return obj
