@@ -1,7 +1,3 @@
-
--- Ordering is important, as it can break things (but no idea why)
-require('modules.shortcuts')
-
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 local hyper = require('modules.hyperkey').modal
 
@@ -32,11 +28,16 @@ secondaryPasteboard:start()
 
 local menuActions = hs.loadSpoon('MenuActions')
 
+local cheatSheet = hs.loadSpoon("CheatSheet"):bindHotkeys({
+      toggle = { { 'hyper' }, '/', modal = hyper }
+})
+
 commander:registerAction({ name = "windows", text = "Windows" })
 commander:registerAction({ name = "spaces", text = "Spaces" })
 commander:registerAction({ name = "pasteboard", text = "Pasteboard" })
 commander:registerAction({ name = "menu", text = "Menu" })
 
+commander:registerSpoon(cheatSheet)
 commander:registerSpoon(inputSources)
 commander:registerSpoon(locator)
 commander:registerSpoon(windows, "windows")

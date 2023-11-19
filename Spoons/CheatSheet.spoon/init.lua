@@ -1,9 +1,22 @@
-local module = {}
+--- === CheatSheet ===
+---
+--- Show a cheat sheet for common keyboard shortcuts.
 
-local hyper = require('modules.hyperkey').modal
-local width = 1400
-local height = 920
-local htmlContent = [[
+local obj = {}
+obj.__index = obj
+
+-- Metadata
+obj.name = 'CheatSheet'
+obj.version = 'latest'
+obj.author = 'Markus Opitz <markus@bitsandbobs.net>'
+obj.homepage = 'https://github.com/mrkuz/hammerspoon'
+obj.license = 'MIT - https://opensource.org/license/mit/'
+
+obj.logger = hs.logger.new('CheatSheet')
+
+obj.width = 1400
+obj.height = 920
+obj.content = [[
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,37 +106,61 @@ local htmlContent = [[
 </html>
 ]]
 
-function _init(modal)
-   print("== Module 'shortcuts' loaded")
+obj._hotkeyMapping = nil
+obj._webview = nil
 
-   local webview = hs.webview.new({})
-   webview:windowTitle("Shortcuts")
-   webview:windowStyle({"titled", "closable"})
-   webview:shadow(true)
-   webview:alpha(0.9)
-   webview:allowNewWindows(false)
-   webview:bringToFront(true)
-   webview:html(htmlContent)
+local utils = require('lib.utils')
 
-   hyper:bind({}, "/", nil, function() _toggle(webview) end)
+function obj:init()
+   self._webview = hs.webview.new({})
+   self._webview:windowTitle('Shortcuts')
+   self._webview:windowStyle({'titled', 'closable'})
+   self._webview:shadow(true)
+   self._webview:alpha(0.9)
+   self._webview:allowNewWindows(false)
+   self._webview:bringToFront(true)
+   self._webview:html(obj.content)
 end
 
-function _toggle(webview)
-   if webview:isVisible() then
-      webview:hide()
-   else
-      local screen = hs.screen.mainScreen()
-      local frame = screen:fullFrame()
-      webview:frame({
-            x = frame.w / 2 - width / 2,
-            y = frame.h / 2 - height / 2,
-            w = width,
-            h = height,
-      })
+function obj:bindHotkeys(mapping)
+   self._hotkeyMapping = mapping
+   utils.bind(mapping, 'toggle', function() self:_toggle() end)
+   return self
+end
 
-      webview:show()
+function obj:hotkeyMapping()
+   return self._hotkeyMapping;
+end
+
+function obj:actions()
+   return {
+      {
+         name = 'show',
+         text = 'Show cheat sheet',
+         actionFn = function() self:_show() end
+      }
+   }
+end
+
+function obj:_toggle()
+   if self._webview:isVisible() then
+      self._webview:hide()
+   else
+      self:_show()
    end
 end
 
-_init()
-return module
+function obj:_show()
+   local screen = hs.screen.mainScreen()
+   local frame = screen:fullFrame()
+   self._webview:frame({
+         x = frame.w / 2 - obj.width / 2,
+         y = frame.h / 2 - obj.height / 2,
+         w = obj.width,
+         h = obj.height,
+   })
+
+   self._webview:show()
+end
+
+return obj
