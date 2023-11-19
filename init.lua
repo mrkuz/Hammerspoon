@@ -1,5 +1,8 @@
--- Map caps lock to F20
+-- -------------------------------------------------------------------------------
+-- Map caps lock to F20 ==
 -- see: https://developer.apple.com/library/archive/technotes/tn2450/_index.html#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES)
+-- -------------------------------------------------------------------------------
+
 local codeCapsLock = "0x700000039"
 local codeF20 = "0x70000006F"
 hs.execute("hidutil property --set '{\"UserKeyMapping\":[{"
@@ -10,36 +13,25 @@ hs.execute("hidutil property --set '{\"UserKeyMapping\":[{"
 local hyper = hs.hotkey.modal.new()
 hs.hotkey.bind({}, "F20", function() hyper:enter() end, function() hyper:exit() end)
 
-local commander = hs.loadSpoon('Commander'):bindHotkeys({
-      show = { {}, 'space', modal = hyper }
-})
+-- -------------------------------------------------------------------------------
+-- Load Spoons
+-- -------------------------------------------------------------------------------
 
 hs.loadSpoon('SafetyNet'):start()
 
-local hammerspoon = hs.loadSpoon('Hammerspoon'):bindHotkeys({
-      reloadConfig = { { 'hyper' }, 'r', modal = hyper }
-})
-local locator = hs.loadSpoon('MouseLocator'):bindHotkeys({
-      toggle = { { 'hyper' }, 'w', modal = hyper }
-})
-local windows = hs.loadSpoon('Windows'):bindHotkeys({
-      forceClose = { { 'ctrl', 'cmd' }, 'w' },
-      minimizeAll = { { 'hyper', 'cmd' }, 'm', modal = hyper },
-      hideAll = { { 'hyper', 'cmd' }, 'h', modal = hyper }
-                                                   })
+local commander = hs.loadSpoon('Commander')
+local hammerspoon = hs.loadSpoon('Hammerspoon')
+local locator = hs.loadSpoon('MouseLocator')
+local windows = hs.loadSpoon('Windows')
 local spaces = hs.loadSpoon('Spaces'):start()
-
-local inputSources = hs.loadSpoon('InputSources')
-inputSources:start()
-
-local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard')
-secondaryPasteboard:start()
-
+local inputSources = hs.loadSpoon('InputSources'):start()
+local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard'):start()
 local menuActions = hs.loadSpoon('MenuActions')
+local cheatSheet = hs.loadSpoon("CheatSheet")
 
-local cheatSheet = hs.loadSpoon("CheatSheet"):bindHotkeys({
-      toggle = { { 'hyper' }, '/', modal = hyper }
-})
+-- -------------------------------------------------------------------------------
+-- Configure Commander
+-- -------------------------------------------------------------------------------
 
 commander:registerAction({ name = "windows", text = "Windows" })
 commander:registerAction({ name = "spaces", text = "Spaces" })
@@ -54,6 +46,32 @@ commander:registerSpoon(spaces, "spaces")
 commander:registerSpoon(secondaryPasteboard, "pasteboard")
 commander:registerSpoon(menuActions, "menu")
 commander:registerSpoon(hammerspoon)
+
+-- -------------------------------------------------------------------------------
+-- Set up hotkeys
+-- -------------------------------------------------------------------------------
+
+commander:bindHotkeys({
+      show = { {}, 'space', modal = hyper }
+})
+cheatSheet:bindHotkeys({
+      toggle = { { 'hyper' }, '/', modal = hyper }
+})
+locator:bindHotkeys({
+      toggle = { { 'hyper' }, 'w', modal = hyper }
+})
+windows:bindHotkeys({
+      forceClose = { { 'ctrl', 'cmd' }, 'w' },
+      minimizeAll = { { 'hyper', 'cmd' }, 'm', modal = hyper },
+      hideAll = { { 'hyper', 'cmd' }, 'h', modal = hyper }
+})
+hammerspoon:bindHotkeys({
+      reloadConfig = { { 'hyper' }, 'r', modal = hyper }
+})
+
+-- -------------------------------------------------------------------------------
+-- Configure some custom hotkeys
+-- -------------------------------------------------------------------------------
 
 local emacsSocket = '/var/folders/tm/s0rmv44130v_l7p3jynpdkm00000gn/T/emacs501/default'
 

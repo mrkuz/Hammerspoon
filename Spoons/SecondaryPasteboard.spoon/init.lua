@@ -47,11 +47,13 @@ end
 function obj:start()
    self._copyEventtap:start()
    self._pasteEventtap:start()
+   return self
 end
 
 function obj:stop()
    self._copyEventtap:stop()
    self._pasteEventtap:stop()
+   return
 end
 
 function obj:actions()

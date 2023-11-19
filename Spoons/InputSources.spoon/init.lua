@@ -34,10 +34,12 @@ end
 
 function obj:start()
    self._eventtap:start()
+   return self
 end
 
 function obj:stop()
    self._eventtap:stop()
+   return self
 end
 
 function obj:actions()
