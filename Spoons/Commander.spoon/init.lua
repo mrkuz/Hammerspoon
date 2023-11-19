@@ -16,6 +16,7 @@ obj.logger = hs.logger.new('Commander')
 
 obj._chooser = nil
 obj._actions = {}
+obj._hotkeyMapping = {}
 obj._spoons = {}
 obj._parentMapping = {}
 obj._actionMapping = nil
@@ -53,7 +54,14 @@ function obj:bindHotkeys(mapping)
 end
 
 function obj:registerAction(action)
+   if not action.name then
+      action.name = hs.host.uuid()
+   end
    table.insert(self._actions, action)
+   if action[1] and action[2] and action.actionFn then
+      self._hotkeyMapping[action.name] = action
+      utils.bind(self._hotkeyMapping, action.name, action.actionFn)
+   end
    return self
 end
 
@@ -68,7 +76,7 @@ function obj:_buildChoices(parent)
    self._choices = {}
    for _, action in ipairs(self._actions) do
       if action.parent == parent then
-         local choice = self:_newChoice(action)
+         local choice = self:_newChoice(action, self._hotkeyMapping[action.name])
          table.insert(self._choices, choice)
          self._actionMapping[choice.uuid] = action
       end
