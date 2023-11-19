@@ -27,7 +27,6 @@ local spaces = hs.loadSpoon('Spaces'):start()
 local inputSources = hs.loadSpoon('InputSources'):start()
 local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard'):start()
 local menuActions = hs.loadSpoon('MenuActions')
-local cheatSheet = hs.loadSpoon("CheatSheet")
 local shellActions = hs.loadSpoon("ShellActions")
 local keyboardActions = hs.loadSpoon("KeyboardActions")
 
@@ -38,12 +37,12 @@ local keyboardActions = hs.loadSpoon("KeyboardActions")
 commander:registerAction({ name = 'macos', text = 'macOS' })
 commander:registerAction({ name = 'windows', text = 'Windows' })
 commander:registerAction({ name = 'spaces', text = 'Spaces' })
+commander:registerAction({ name = 'files', text = 'Files' })
 commander:registerAction({ name = 'pasteboard', text = 'Pasteboard' })
 commander:registerAction({ name = 'screenshots', text = 'Screenshots' })
 commander:registerAction({ name = 'menu', text = 'Menu' })
 commander:registerAction({ name = 'emacs', text = 'Emacs' })
 
-commander:registerSpoon(cheatSheet)
 commander:registerSpoon(shellActions)
 commander:registerSpoon(inputSources)
 commander:registerSpoon(locator)
@@ -61,9 +60,6 @@ commander:registerSpoon(hammerspoon)
 commander:bindHotkeys({
       show = { {}, 'space', modal = hyper }
 }) 
-cheatSheet:bindHotkeys({
-      toggle = { { 'hyper' }, '/', modal = hyper }
-})
 locator:bindHotkeys({
       toggle = { { 'hyper' }, 'w', modal = hyper }
 })
@@ -98,7 +94,7 @@ shellActions:registerAction({
 })
 shellActions:registerAction({
       { 'hyper' }, 'h', modal = hyper,
-      text = 'Open home directory',
+      text = 'Open home directory', parent = 'files',
       command = 'open $HOME'
 })
 shellActions:registerAction({
@@ -130,7 +126,7 @@ keyboardActions:registerAction({ { 'shift', 'cmd' }, '4', text = 'Screenshot of 
 
 commander:registerAction(
    {
-      text = 'Siri', extraText = '⌘ SPC (hold)', parent = 'macos',
+      text = 'Hey Siri!', extraText = '⌘ SPC (hold)', parent = 'macos',
       actionFn = function()
          hs.osascript.applescript([[
            tell application "System Events"
