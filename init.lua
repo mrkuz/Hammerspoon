@@ -29,6 +29,7 @@ local secondaryPasteboard = hs.loadSpoon('SecondaryPasteboard'):start()
 local menuActions = hs.loadSpoon('MenuActions')
 local shellActions = hs.loadSpoon("ShellActions")
 local keyboardActions = hs.loadSpoon("KeyboardActions")
+local appleScriptActions = hs.loadSpoon("AppleScriptActions")
 
 -- -------------------------------------------------------------------------------
 -- Configure Commander
@@ -44,6 +45,7 @@ commander:registerAction({ name = 'menu', text = 'Menu' })
 commander:registerAction({ name = 'emacs', text = 'Emacs' })
 
 commander:registerSpoon(shellActions)
+commander:registerSpoon(appleScriptActions)
 commander:registerSpoon(inputSources)
 commander:registerSpoon(locator)
 commander:registerSpoon(windows, 'windows')
@@ -101,6 +103,11 @@ shellActions:registerAction({
       { 'hyper' }, 't', modal = hyper,
       text = 'New terminal',
       command = 'open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app'
+})
+
+appleScriptActions:registerAction({
+      text = 'Shut down', parent = 'macos',
+      script = 'tell application "System Events" to shut down'
 })
 
 -- -------------------------------------------------------------------------------
