@@ -100,6 +100,10 @@ function obj:start()
    return self
 end
 
+function obj:stop()
+   self._watcher:stop()
+end
+
 function obj:hotkeyMapping()
    return self._hotkeyMapping;
 end
