@@ -4,6 +4,7 @@ local keycodes = {
    f3 = 160,
    f4 = 131,
    f5 = 96,
+   f16 = 106,
    down = 125,
    c = 8
 }

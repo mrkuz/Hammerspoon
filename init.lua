@@ -110,9 +110,16 @@ appleScriptActions:registerAction({
       script = 'tell application "System Events" to shut down'
 })
 
+appleScriptActions:registerAction({
+      text = 'Restart', parent = 'macos',
+      script = 'tell application "System Events" to restart'
+})
+
 -- -------------------------------------------------------------------------------
 -- Add actions for existing keyboard shortcuts
 -- -------------------------------------------------------------------------------
+
+keyboardActions:registerAction({ {}, 'F16', system = true, text = 'Toggle "Do not Disturb"',})
 
 keyboardActions:registerAction({ { 'cmd' }, 'space', text = 'Spotlight', parent = 'macos' })
 keyboardActions:registerAction({ {}, 'F3', system = true, text = 'Mission Control', parent = 'macos' })
@@ -131,11 +138,10 @@ keyboardActions:registerAction({ { 'alt', 'cmd' }, 'w', text = 'Close windows of
 keyboardActions:registerAction({ { 'shift', 'cmd' }, '3', text = 'Screenshot', parent = 'screenshots' })
 keyboardActions:registerAction({ { 'shift', 'cmd' }, '4', text = 'Screenshot of area', parent = 'screenshots' })
 
-commander:registerAction(
+appleScriptActions:registerAction(
    {
       text = 'Hey Siri!', extraText = '⌘ SPC (hold)', parent = 'macos',
-      actionFn = function()
-         hs.osascript.applescript([[
+      script = [[
            tell application "System Events"
              key down {command}
              key down 49
@@ -143,8 +149,7 @@ commander:registerAction(
              key up 49
              key up {command}
            end tell
-         ]])
-      end
+         ]]
    }
 )
 
