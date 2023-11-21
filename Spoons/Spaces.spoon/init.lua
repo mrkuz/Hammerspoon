@@ -23,10 +23,17 @@ obj._hotkeyMapping = {
    moveWindowRight = { obj.mods, 'right' },
    moveWindowLeft = { obj.mods, 'left' },
 }
+obj._menubar = nil
+obj._watcher = nil
 
 local utils = require('lib.utils')
 
 function obj:init()
+   self._menubar = hs.menubar.new(true, "Spaces")
+   self._watcher = hs.spaces.watcher.new(function()
+         self._menubar:setTitle(self:_currentSpaceIndex())
+   end)
+
    self._actions = {
       {
          name = 'switchToRight',
@@ -87,6 +94,9 @@ function obj:start()
 
    hs.hotkey.bind(obj.mods, 'left', nil, function() self:_moveFocusedWindowLeft() end)
    hs.hotkey.bind(obj.mods, 'right', nil, function() self:_moveFocusedWindowRight() end)
+
+   self._menubar:setTitle(self:_currentSpaceIndex())
+   self._watcher:start()
    return self
 end
 
