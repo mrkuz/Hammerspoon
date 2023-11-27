@@ -114,10 +114,12 @@ end
 
 function obj:_currentSpaceIndex()
    local spaces = hs.spaces.spacesForScreen()
-   local current = hs.spaces.focusedSpace()
-   for k, v in ipairs(spaces) do
-      if v == current then
-         return k
+   if spaces then
+      local current = hs.spaces.focusedSpace()
+      for k, v in ipairs(spaces) do
+         if v == current then
+            return k
+         end
       end
    end
 end
