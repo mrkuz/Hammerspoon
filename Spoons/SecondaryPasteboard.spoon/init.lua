@@ -20,6 +20,10 @@ obj._hotkeyMapping = nil
 obj._content = nil
 obj._copyEventtap = nil
 obj._pasteEventtap = nil
+obj._copyWatcher = nil
+obj._capture = false
+obj._skip = false
+obj._backup = nil
 
 local utils = require('lib.utils')
 
@@ -41,6 +45,22 @@ function obj:init()
             self:_paste()
          end
    end)
+
+   self._copyWatcher = hs.pasteboard.watcher.new(
+      function(content)
+         if content then
+            if self._skip then
+               self._skip = false
+            elseif self._capture then
+               self._capture = false
+               self._content = content
+               hs.pasteboard.setContents(self._backup)
+            else
+               self._backup = content
+            end
+         end
+   end)
+
    return self
 end
 
@@ -82,20 +102,16 @@ function obj:actions()
 end
 
 function obj:_copy()
-   local backup = hs.pasteboard.getContents()
+   self._capture = true
    utils.systemKeyStroke({ 'cmd' }, 'c')
-   hs.timer.doAfter(
-      -- Wait a short time so the content is available in the primary pasteboard
-      0.1,
-      function()
-         self._content = hs.pasteboard.getContents()
-         hs.pasteboard.setContents(backup)
-   end)
 end
 
 function obj:_paste()
    if self._content then
-      hs.eventtap.keyStrokes(self._content)
+      self._skip = true
+      hs.pasteboard.setContents(self._content)
+      utils.systemKeyStroke({ 'cmd' }, 'v')
+      hs.pasteboard.setContents(self._backup)
    end
 end
 

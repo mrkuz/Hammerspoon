@@ -8,7 +8,8 @@ local keycodes = {
    down = 125,
    plus = 69,
    minus = 78,
-   c = 8
+   c = 8,
+   v = 9
 }
 
 return keycodes
