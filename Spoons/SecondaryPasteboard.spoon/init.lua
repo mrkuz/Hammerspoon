@@ -21,8 +21,8 @@ obj._content = nil
 obj._copyEventtap = nil
 obj._pasteEventtap = nil
 obj._copyWatcher = nil
-obj._capture = false
-obj._skip = false
+obj._captureMode = false
+obj._pasteMode = false
 obj._backup = nil
 
 local utils = require('lib.utils')
@@ -49,10 +49,12 @@ function obj:init()
    self._copyWatcher = hs.pasteboard.watcher.new(
       function(content)
          if content then
-            if self._skip then
-               self._skip = false
-            elseif self._capture then
-               self._capture = false
+            if self._pasteMode then
+               self._pasteMode = false
+               utils.systemKeyStroke({ 'cmd' }, 'v')
+               hs.pasteboard.setContents(self._backup)
+            elseif self._captureMode then
+               self._captureMode = false
                self._content = content
                hs.pasteboard.setContents(self._backup)
             else
@@ -67,12 +69,14 @@ end
 function obj:start()
    self._copyEventtap:start()
    self._pasteEventtap:start()
+   self._copyWatcher:start()
    return self
 end
 
 function obj:stop()
    self._copyEventtap:stop()
    self._pasteEventtap:stop()
+   self._copyWatcher:stop()
    return
 end
 
@@ -102,16 +106,14 @@ function obj:actions()
 end
 
 function obj:_copy()
-   self._capture = true
+   self._captureMode = true
    utils.systemKeyStroke({ 'cmd' }, 'c')
 end
 
 function obj:_paste()
    if self._content then
-      self._skip = true
+      self._pasteMode = true
       hs.pasteboard.setContents(self._content)
-      utils.systemKeyStroke({ 'cmd' }, 'v')
-      hs.pasteboard.setContents(self._backup)
    end
 end
 
