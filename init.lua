@@ -80,6 +80,23 @@ hammerspoon:bindHotkeys({
 })
 
 -- -------------------------------------------------------------------------------
+-- Function keys
+-- -------------------------------------------------------------------------------
+
+hyper:bind({}, '1', function() hs.eventtap.keyStroke({}, 'F1') end)
+hyper:bind({}, '2', function() hs.eventtap.keyStroke({}, 'F2') end)
+hyper:bind({}, '3', function() hs.eventtap.keyStroke({}, 'F3') end)
+hyper:bind({}, '4', function() hs.eventtap.keyStroke({}, 'F4') end)
+hyper:bind({}, '5', function() hs.eventtap.keyStroke({}, 'F5') end)
+hyper:bind({}, '6', function() hs.eventtap.keyStroke({}, 'F6') end)
+hyper:bind({}, '7', function() hs.eventtap.keyStroke({}, 'F7') end)
+hyper:bind({}, '8', function() hs.eventtap.keyStroke({}, 'F8') end)
+hyper:bind({}, '9', function() hs.eventtap.keyStroke({}, 'F9') end)
+hyper:bind({}, '0', function() hs.eventtap.keyStroke({}, 'F10') end)
+hyper:bind({}, '-', function() hs.eventtap.keyStroke({}, 'F11') end)
+hyper:bind({}, '=', function() hs.eventtap.keyStroke({}, 'F12') end)
+
+-- -------------------------------------------------------------------------------
 -- Configure some custom actions
 -- -------------------------------------------------------------------------------
 
@@ -163,3 +180,4 @@ commander:registerAction(
       end
    }
 )
+
