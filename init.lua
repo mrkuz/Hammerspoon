@@ -31,6 +31,7 @@ local menuActions = hs.loadSpoon('MenuActions')
 local shellActions = hs.loadSpoon("ShellActions")
 local keyboardActions = hs.loadSpoon("KeyboardActions")
 local appleScriptActions = hs.loadSpoon("AppleScriptActions")
+local caffeine = hs.loadSpoon("Caffeine")
 
 -- -------------------------------------------------------------------------------
 -- Configure Commander
@@ -48,6 +49,7 @@ commander:registerAction({ name = 'emacs', text = 'Emacs' })
 commander:registerSpoon(shellActions)
 commander:registerSpoon(appleScriptActions)
 commander:registerSpoon(inputSources)
+commander:registerSpoon(caffeine)
 commander:registerSpoon(locator)
 commander:registerSpoon(windows, 'windows')
 commander:registerSpoon(spaces, 'spaces')
