@@ -155,6 +155,7 @@ keyboardActions:registerAction({ { 'ctrl' }, 'down', system = true, text = 'App 
 keyboardActions:registerAction({ { 'ctrl', 'cmd' }, 'q', text = 'Lock screen', parent = 'macos' })
 keyboardActions:registerAction({ { 'shift', 'cmd' }, 'q', text = 'Log out', parent = 'macos' })
 
+keyboardActions:registerAction({ { 'cmd' }, '`', text = 'Next window of current app', parent = 'windows' })
 keyboardActions:registerAction({ { 'cmd' }, 'h', text = 'Hide windows of current app', parent = 'windows' })
 keyboardActions:registerAction({ { 'alt', 'cmd' }, 'h', text = 'Hide windows of other apps', parent = 'windows' })
 keyboardActions:registerAction({ { 'cmd' }, 'm', text = 'Minimize window', parent = 'windows' })
