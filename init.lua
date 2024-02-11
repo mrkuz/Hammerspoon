@@ -64,13 +64,19 @@ commander:registerSpoon(hammerspoon)
 
 commander:bindHotkeys({
       show = { {}, 'space', modal = hyper }
-}) 
+})
 locator:bindHotkeys({
       toggle = { { 'hyper' }, 'w', modal = hyper }
 })
 windows:bindHotkeys({
-      tileLeft = { { 'ctrl', 'alt' }, 'left' },
-      tileRight = { { 'ctrl', 'alt' }, 'right' },
+      tileLeft = { { 'ctrl', 'alt' }, 'left' , alt = { { 'ctrl', 'alt' }, 'pad4' } },
+      tileRight = { { 'ctrl', 'alt' }, 'right', alt = { { 'ctrl', 'alt' }, 'pad6' } },
+      tileTop = { { 'ctrl', 'alt' }, 'pad8' },
+      tileBottom = { { 'ctrl', 'alt' }, 'pad2' },
+      tileTopLeft = { { 'ctrl', 'alt' }, 'pad7' },
+      tileBottomLeft = { { 'ctrl', 'alt' }, 'pad1' },
+      tileTopRight = { { 'ctrl', 'alt' }, 'pad9' },
+      tileBottomRight = { { 'ctrl', 'alt' }, 'pad3' },
       maximize = { { 'ctrl', 'alt' }, 'up' },
       restore = { { 'ctrl', 'alt' }, 'down' },
       forceClose = { { 'ctrl', 'cmd' }, 'w' },
@@ -182,4 +188,3 @@ commander:registerAction(
       end
    }
 )
-

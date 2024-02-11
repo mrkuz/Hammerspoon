@@ -11,6 +11,11 @@ function utils.bind(mapping, actionName, pressFn, releaseFn)
       else
          hs.hotkey.bind(spec[1], spec[2], pressFn, releaseFn)
       end
+      if spec.alt then
+         mapping = {}
+         mapping[actionName] = spec.alt
+         utils.bind(mapping, actionName, pressFn, releaseFn)
+      end
    end
    return self
 end

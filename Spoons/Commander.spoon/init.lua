@@ -193,6 +193,8 @@ function obj:_prettySpec(spec)
          text = text .. '↓'
       elseif key == 'space' then
          text = text .. 'SPC'
+      elseif utils.startsWith(key, 'pad') then
+         text = text .. '#' .. key:sub(4)
       else
          text = text .. key:upper()
       end

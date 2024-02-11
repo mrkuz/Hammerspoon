@@ -29,6 +29,12 @@ function obj:bindHotkeys(mapping)
    utils.bind(mapping, 'restore', function() self:_restoreWindow() end)
    utils.bind(mapping, 'tileLeft', function() self:_tileWindowToLeft() end)
    utils.bind(mapping, 'tileRight', function() self:_tileWindowToRight() end)
+   utils.bind(mapping, 'tileTop', function() self:_tileWindowToTop() end)
+   utils.bind(mapping, 'tileBottom', function() self:_tileWindowToBottom() end)
+   utils.bind(mapping, 'tileTopLeft', function() self:_tileWindowToTopLeft() end)
+   utils.bind(mapping, 'tileBottomLeft', function() self:_tileWindowToBottomLeft() end)
+   utils.bind(mapping, 'tileTopRight', function() self:_tileWindowToTopRight() end)
+   utils.bind(mapping, 'tileBottomRight', function() self:_tileWindowToBottomRight() end)
    return self
 end
 
@@ -72,6 +78,36 @@ function obj:actions()
          name = 'tileRight',
          text = 'Tile window to right',
          actionFn = function() self:_tileWindowToRight() end
+      },
+      {
+         name = 'tileTop',
+         text = 'Tile window to top',
+         actionFn = function() self:_tileWindowToTop() end
+      },
+      {
+         name = 'tileBottom',
+         text = 'Tile window to bottom',
+         actionFn = function() self:_tileWindowToBottom() end
+      },
+      {
+         name = 'tileTopLeft',
+         text = 'Tile window to top-left',
+         actionFn = function() self:_tileWindowToTopLeft() end
+      },
+      {
+         name = 'tileBottomLeft',
+         text = 'Tile window to bottom-left',
+         actionFn = function() self:_tileWindowToBottomLeft() end
+      },
+      {
+         name = 'tileTopRight',
+         text = 'Tile window to top-right',
+         actionFn = function() self:_tileWindowToTopRight() end
+      },
+      {
+         name = 'tileBottomRight',
+         text = 'Tile window to bottom-right',
+         actionFn = function() self:_tileWindowToBottomRight() end
       }
    }
 end
@@ -119,13 +155,7 @@ end
 function obj:_tileWindowToLeft()
    local window = hs.window.focusedWindow()
    local screen = window:screen():frame()
-
-   local frame = {
-      x = 0,
-      y = 0,
-      w = screen.w / 2,
-      h = screen.h,
-   }
+   local frame = { x = 0, y = 0, w = screen.w / 2, h = screen.h }
    self._store[window:id()] = window:frame()
    window:setFrame(frame)
 end
@@ -133,13 +163,55 @@ end
 function obj:_tileWindowToRight()
    local window = hs.window.focusedWindow()
    local screen = window:screen():frame()
+   local frame = { x = screen.w / 2, y = 0, w = screen.w / 2, h = screen.h }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
 
-   local frame = {
-      x = screen.x + (screen.w / 2),
-      y = screen.y,
-      w = screen.w / 2,
-      h = screen.h,
-   }
+function obj:_tileWindowToTop()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+   local frame = { x = 0, y = 0, w = screen.w, h = screen.h / 2 }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
+
+function obj:_tileWindowToBottom()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+   local frame = { x = 0, y = screen.y + screen.h / 2, w = screen.w, h = screen.h / 2 }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
+
+function obj:_tileWindowToTopLeft()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+   local frame = { x = 0, y = 0, w = screen.w / 2, h = screen.h / 2 }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
+
+function obj:_tileWindowToBottomLeft()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+   local frame = { x = 0, y = screen.y + screen.h / 2, w = screen.w / 2, h = screen.h / 2 }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
+
+function obj:_tileWindowToTopRight()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+   local frame = { x = screen.w / 2, y = 0, w = screen.w / 2, h = screen.h / 2 }
+   self._store[window:id()] = window:frame()
+   window:setFrame(frame)
+end
+
+function obj:_tileWindowToBottomRight()
+   local window = hs.window.focusedWindow()
+   local screen = window:screen():frame()
+   local frame = { x = screen.w / 2, y = screen.y + screen.h / 2, w = screen.w / 2, h = screen.h / 2 }
    self._store[window:id()] = window:frame()
    window:setFrame(frame)
 end
