@@ -28,6 +28,8 @@ obj._backup = nil
 local utils = require('lib.utils')
 
 function obj:init()
+   self._backup = hs.pasteboard.getContents()
+
    -- Copy with left mouse button
    self._copyEventtap = hs.eventtap.new({ hs.eventtap.event.types.leftMouseUp },
       function(event)
