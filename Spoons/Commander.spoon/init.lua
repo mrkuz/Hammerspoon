@@ -111,10 +111,10 @@ end
 function obj:_filterChoices(query)
    local choices = {}
    for _, choice in ipairs(self._choices) do
-      choice.score = fzy.score(query, choice.origText)
+      choice.score = fzy.score(query, choice.filterText)
       if choice.score == math.huge then
          -- Workaround for bug in fzy
-         if utils.startsWith(choice.origText, query) then
+         if utils.startsWith(choice.filterText, query) then
             table.insert(choices, choice)
          end
       elseif choice.score > -math.huge then
@@ -138,8 +138,11 @@ end
 function obj:_newChoice(action, spec)
    local choice = {}
    choice.uuid = hs.host.uuid()
-   choice.origText = action.text
-   choice.subText = action.subText
+   choice.filterText = action.text
+   if utils.isNotEmpty(action.subText) then
+      choice.subText = action.subText
+      choice.filterText = choice.filterText .. ' ' .. choice.subText
+   end
    if spec then
       choice.text = action.text .. self:_prettySpec(spec)
    else
