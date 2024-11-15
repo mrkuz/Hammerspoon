@@ -128,7 +128,7 @@ shellActions:registerAction({
 shellActions:registerAction({
       { 'hyper' }, 't', modal = hyper,
       text = 'New terminal',
-      command = 'open -n /Users/markus/Applications/Home\\ Manager\\ Apps/kitty.app'
+      command = 'kitty'
 })
 
 appleScriptActions:registerAction({

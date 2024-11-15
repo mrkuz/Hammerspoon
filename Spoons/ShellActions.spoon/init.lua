@@ -29,7 +29,7 @@ end
 
 function obj:registerAction(spec)
    local action = utils.copy(spec, { 'name', 'text', 'subText', 'extraText', 'parent' } )
-   action.actionFn = function() hs.execute(spec.command, true) end
+   action.actionFn = function() hs.execute(spec.command .. ' &> /dev/null & disown', true) end
    if not action.name then
       action.name = hs.host.uuid()
    end
