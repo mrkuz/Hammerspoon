@@ -128,7 +128,7 @@ shellActions:registerAction({
 shellActions:registerAction({
       { 'hyper' }, 't', modal = hyper,
       text = 'New terminal',
-      command = 'kitty'
+      command = 'alacritty'
 })
 
 appleScriptActions:registerAction({
